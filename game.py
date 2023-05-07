@@ -20,13 +20,13 @@ figures_pos = [[(-1,0),(-2,0),(0,0),(1,0)],
               [(0,0),(0,-1),(0,1),(1,-1)],
               [(0,0),(0,-1),(0,1),(-1,0)]]
 
-figures = [[pygame.Rect(x+w//2,y+1,1,1)for x,y in fig_pos]for fig_pos in figures_pos]
+figures = [[pygame.Rect(x+w//2, y+1, 1, 1)for x,y in fig_pos] for fig_pos in figures_pos]
 figures_rect = pygame.Rect(0,0,Tile-2,Tile-2)
 
-figure = figures(0)
+figure = figures[0]
 
 while True:
-    game_screen.fill(pygame.Color(200,200,200))
+    game_screen.fill(pygame.Color('black'))
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -37,7 +37,7 @@ while True:
     for i in range(4):
         figures_rect.x = figure[i].x * Tile
         figures_rect.y = figure[i].y * Tile
-        pygame.draw.rect(game_screen, pygame.color('white'),figures_rect)
+        pygame.draw.rect(game_screen, pygame.Color('white'),figures_rect)
             
     pygame.display.flip()
     clock.tick(fps)
