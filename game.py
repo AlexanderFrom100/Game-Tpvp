@@ -26,7 +26,9 @@ figures = [[pygame.Rect(x+w//2, y+1, 1, 1)for x,y in fig_pos] for fig_pos in fig
 figures_rect = pygame.Rect(0,0,Tile-2,Tile-2)
 field = [[0 for i in range(w)]for j in range(h)]
 
-fall_count,fall_speed,fall_limit = 0, 60, 2000
+fall_count = 0
+fall_speed = 60
+fall_limit = 2000
 
 figure = deepcopy(choice(figures))
 
@@ -41,6 +43,7 @@ def check_borders():
 
 while True:
     dx = 0
+    rotate = False
     game_screen.fill(pygame.Color('black'))
     
     for event in pygame.event.get():
@@ -49,10 +52,12 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 dx = -1
-            if event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT:
                 dx = 1
-            if event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN:
                 fall_limit = 100
+            elif event.key == pygame.K_UP:
+                rotate = True
         else:
             fall_limit = 2000
             
@@ -75,6 +80,18 @@ while True:
                     field[figure_old[i].y][figure_old[i].x] = pygame.Color('white')
                 figure = deepcopy(choice(figures))
                 fall_limit = 2000
+                break
+    
+    center = figure[0]
+    figure_old = deepcopy(figure)
+    for i in range(4):
+        if rotate:
+            x = figure[i].y - center.y
+            y = figure[i].x - center.x
+            figure[i].x = center.x - x
+            figure[i].y = center.y + y
+            if not check_borders():
+                figure = deepcopy(figure_old)
                 break
     
     [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
