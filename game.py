@@ -31,6 +31,9 @@ fall_speed = 60
 fall_limit = 2000
 
 figure = deepcopy(choice(figures))
+lock_rotate = False
+if figure == figures[1]:
+    lock_rotate = True
 
 hold = pygame.key.get_pressed()
 
@@ -52,12 +55,15 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 dx = -1
-            elif event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT:
                 dx = 1
-            elif event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN:
                 fall_limit = 100
-            elif event.key == pygame.K_UP:
-                rotate = True
+            if event.key == pygame.K_UP:
+                if figure == figures[1]:
+                    lock_rotate = True
+                else:
+                    rotate = True
         else:
             fall_limit = 2000
             
@@ -85,6 +91,8 @@ while True:
     center = figure[0]
     figure_old = deepcopy(figure)
     for i in range(4):
+        if lock_rotate:
+            rotate = False
         if rotate:
             x = figure[i].y - center.y
             y = figure[i].x - center.x
@@ -93,6 +101,7 @@ while True:
             if not check_borders():
                 figure = deepcopy(figure_old)
                 break
+    lock_rotate = False
     
     [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
     
