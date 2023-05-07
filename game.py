@@ -1,6 +1,6 @@
 import pygame 
 from copy import deepcopy
-from random import ram, randrange
+from random import choice, randrange
 
 w = 10
 h = 20
@@ -28,7 +28,7 @@ field = [[0 for i in range(w)]for j in range(h)]
 
 fall_count,fall_speed,fall_limit = 0, 60, 2000
 
-figure = deepcopy(ram(figures))
+figure = deepcopy(choice(figures))
 
 def check_borders():
     if figure[i].x<0 or figure[i].x>w-1:
@@ -56,19 +56,19 @@ while True:
     for i in range(4):
         figure[i].x += dx
         if not check_borders():
-            figure = deepcopy(ram(figures))
+            figure = deepcopy(figure_old)
             break
         
     fall_count += fall_speed
     if fall_count > fall_limit:
         fall_count = 0
-        figure_old = deepcopy(figures)
+        figure_old = deepcopy(figure)
         for i in range(4):
             figure[i].y += 1
             if not check_borders():
                 for i in range(4):
                     field[figure_old[i].y][figure_old[i].x] = pygame.Color('white')
-                figure = deepcopy(figure_old)
+                figure = deepcopy(choice(figures))
                 fall_limit = 2000
                 break
     
