@@ -47,10 +47,13 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 dx = -1
+                fall_limit = 2000
             elif event.key == pygame.K_RIGHT:
                 dx = 1
+                fall_limit = 2000
             elif event.key == pygame.K_DOWN:
                 fall_limit = 100
+            
     
     figure_old = deepcopy(figure)
     for i in range(4):
