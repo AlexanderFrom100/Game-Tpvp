@@ -45,6 +45,10 @@ while True:
                 dx = -1
             elif event.key == pygame.K_RIGHT:
                 dx = 1
+            elif event.key == pygame.K_DOWN:
+                fall_limit = 100
+            elif event.key == pygame.K_UP:
+                fall_limit = 0
     
     figure_old = deepcopy(figure)
     for i in range(4):
@@ -61,6 +65,7 @@ while True:
             figure[i].y += 1
             if not check_borders():
                 figure = deepcopy(figure_old)
+                fall_limit = 2000
                 break
     
     [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
