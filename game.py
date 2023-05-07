@@ -24,6 +24,8 @@ figures_pos = [[(-1,0),(-2,0),(0,0),(1,0)],
 figures = [[pygame.Rect(x+w//2, y+1, 1, 1)for x,y in fig_pos] for fig_pos in figures_pos]
 figures_rect = pygame.Rect(0,0,Tile-2,Tile-2)
 
+fall_count,fall_speed,fall_limit = 0, 60, 2000
+
 figure = deepcopy(figures[0])
 
 def check_borders():
@@ -50,6 +52,16 @@ while True:
         if not check_borders():
             figure = deepcopy(figure_old)
             break
+        
+    fall_count += fall_speed
+    if fall_count > fall_limit:
+        fall_count = 0
+        figure_old = deepcopy(figure)
+        for i in range(4):
+            figure[i].y += 1
+            if not check_borders():
+                figure = deepcopy(figure_old)
+                break
     
     [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
     
