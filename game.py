@@ -53,7 +53,8 @@ while True:
                 dx = 1
             if event.key == pygame.K_DOWN:
                 fall_limit = 100
-                
+        else:
+            fall_limit = 2000
             
     
     figure_old = deepcopy(figure)
