@@ -92,6 +92,16 @@ while True:
                 figure = deepcopy(figure_old)
                 break
     
+    line = h-1
+    for row in range(h-1, -1, -1):
+        count = 0
+        for i in range(w):
+            if field[row][i]:
+                count+=1
+            field[line][i] = field[row][i]
+        if count < w:
+            line -= 1
+    
     [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
     
     for i in range(4):
