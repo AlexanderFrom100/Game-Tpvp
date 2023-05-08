@@ -38,6 +38,7 @@ main_font = pygame.font.Font('font.ttf', 45)
 font = pygame.font.Font('font.ttf', 35)
 
 title = main_font.render('TETRIS', True, pygame.Color('cyan'))
+t_score = font.render('money:', True, pygame.Color('green'))
 
 get_color = lambda : (randrange(30,256), randrange(30,256), randrange(30,256))
 
@@ -45,6 +46,10 @@ figure = deepcopy(choice(figures))
 next_figure = deepcopy(choice(figures))
 color = get_color()
 next_color = get_color()
+
+money = 0
+lines = 0
+score = {0:0, 1:1, 2:3, 3:7, 4:15}
 
 def check_borders():
     if figure[i].x<0 or figure[i].x>w-1:
@@ -59,6 +64,9 @@ while True:
     scr.blit(bg, (0, 0))
     scr.blit(game_screen, (20,20))
     game_screen.fill(pygame.Color('black'))
+    
+    for i in range(lines):
+        pygame.time.wait(200)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -94,7 +102,8 @@ while True:
                     field[figure_old[i].y][figure_old[i].x] = color
                 figure = next_figure
                 color = next_color
-                figure = deepcopy(choice(figures)), get_color()
+                next_figure = deepcopy(choice(figures))
+                next_color = get_color()
                 fall_limit = 2000
                 break
     
@@ -111,6 +120,7 @@ while True:
                 break
     
     line = h-1
+    lines = 0
     for row in range(h-1, -1, -1):
         count = 0
         for i in range(w):
@@ -119,6 +129,11 @@ while True:
             field[line][i] = field[row][i]
         if count < w:
             line -= 1
+        else:
+            fall_speed += 3
+            lines += 1
+    
+    money += score[lines]
     
     [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
     
@@ -139,6 +154,21 @@ while True:
         pygame.draw.rect(scr, next_color,figures_rect)
                 
     scr.blit(title, (395, 20))
+    scr.blit(t_score, (395, 600))
+    scr.blit(font.render(str(money), True, pygame.Color('white')), (440, 650))
+    
+    for i in range(w):
+        if field[0][i]:
+            field = [[0 for i in range(w)] for i in range(h)]
+            fall_count = 0
+            fall_speed = 60
+            fall_limit = 2000
+            money = 0
+            for i_rect in grid:
+                pygame.draw.rect(game_screen, get_color(), i_rect)
+                scr.blit(game_screen, (20, 20))
+                pygame.display.flip()
+                clock.tick(200)
             
     pygame.display.flip()
     clock.tick(fps)
