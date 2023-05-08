@@ -36,6 +36,11 @@ figure = deepcopy(choice(figures))
 
 bg = pygame.image.load('tetris1.jpg').convert()
 
+main_font = pygame.font.Font('font.ttf', 45)
+font = pygame.font.Font('font.ttf', 35)
+
+title = main_font.render('TETRIS', True, pygame.Color('cyan'))
+
 get_color = lambda : (randrange(30,256), randrange(30,256), randrange(30,256))
 color = get_color()
 
@@ -124,6 +129,8 @@ while True:
             if col:
                 figures_rect.x, figures_rect.y = x*Tile, y*Tile
                 pygame.draw.rect(game_screen, col, figures_rect)
+                
+    scr.blit(title, (395, 20))
             
     pygame.display.flip()
     clock.tick(fps)
