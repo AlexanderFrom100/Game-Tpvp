@@ -8,10 +8,12 @@ Tile = 35
 screen = w * Tile, h * Tile
 res = 584, 732
 fps = 60
+next_scr = 150, 150
 
 pygame.init()
 scr = pygame.display.set_mode(res)
 game_screen = pygame.Surface(screen)
+next_screen = pygame.Surface(next_scr)
 clock = pygame.time.Clock()
 
 grid = [pygame.Rect(x * Tile, y * Tile, Tile, Tile) for x in range(w) for y in range(h)]
@@ -39,8 +41,9 @@ font = pygame.font.Font('font.ttf', 35)
 
 title = main_font.render('TETRIS', True, pygame.Color('cyan'))
 t_score = font.render('money:', True, pygame.Color('green'))
+next = font.render('Next:', True, pygame.Color('red'))
 
-get_color = lambda : (randrange(30,256), randrange(30,256), randrange(30,256))
+get_color = lambda : (randrange(60,256), randrange(60,256), randrange(60,256))
 
 figure = deepcopy(choice(figures))
 next_figure = deepcopy(choice(figures))
@@ -49,10 +52,12 @@ next_color = get_color()
 
 money = 0
 lines = 0
-score = {0:0, 1:1, 2:3, 3:7, 4:15}
+score = {0:0, 1:1, 2:2, 3:6, 4:12}
 
 pygame.mixer.music.load('Tetris.mp3')
 pygame.mixer.music.play()
+
+line_com = pygame.mixer.Sound('line_complete.mp3')
     
 def check_borders():
     if figure[i].x<0 or figure[i].x>w-1:
@@ -70,6 +75,8 @@ while True:
     scr.blit(bg, (0, 0))
     scr.blit(game_screen, (20,20))
     game_screen.fill(pygame.Color('black'))
+    scr.blit(next_screen, (400,80))
+    next_screen.fill(pygame.Color('white'))
     
     for i in range(lines):
         pygame.time.wait(200)
@@ -138,6 +145,7 @@ while True:
         else:
             fall_speed += 3
             lines += 1
+            line_com.play()
     
     money += score[lines]
     
@@ -162,6 +170,7 @@ while True:
     scr.blit(title, (395, 20))
     scr.blit(t_score, (395, 600))
     scr.blit(font.render(str(money), True, pygame.Color('white')), (440, 650))
+    scr.blit(next, (410,190))
     
     for i in range(w):
         if field[0][i]:
