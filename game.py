@@ -42,6 +42,7 @@ font = pygame.font.Font('font.ttf', 35)
 title = main_font.render('TETRIS', True, pygame.Color('cyan'))
 t_score = font.render('money:', True, pygame.Color('green'))
 next = font.render('Next:', True, pygame.Color('red'))
+time = font.render('Time:', True, pygame.Color('yellow'))
 
 get_color = lambda : (randrange(60,256), randrange(60,256), randrange(60,256))
 
@@ -53,6 +54,10 @@ next_color = get_color()
 money = 0
 lines = 0
 score = {0:0, 1:1, 2:2, 3:6, 4:12}
+
+minutes = 2
+seconds = 0
+milseconds = 0
 
 pygame.mixer.music.load('Tetris.mp3')
 pygame.mixer.music.play()
@@ -172,24 +177,44 @@ while True:
     scr.blit(t_score, (395, 600))
     scr.blit(font.render(str(money), True, pygame.Color('white')), (440, 650))
     scr.blit(next, (410,190))
+    scr.blit(time, (410, 300))
+    scr.blit(font.render(str(minutes), True, pygame.Color('black')), (440, 350))
+    scr.blit(font.render(':', True, pygame.Color('black')), (480, 345))
+    scr.blit(font.render(str(seconds), True, pygame.Color('black')), (500, 350))
+    
+    if milseconds == 0:
+        if seconds == 0:
+            if minutes == 0:
+                game_over += 1
+            else:
+                seconds = 60
+                minutes -= 1
+        milseconds = 60
+        seconds -= 1
+    milseconds -= 1
+        
     
     for i in range(w):
         if field[0][i]:
-            pygame.mixer.music.pause()
-            game_o.play()
-            field = [[0 for i in range(w)] for i in range(h)]
-            fall_count = 0
-            fall_speed = 60
-            fall_limit = 2000
-            money = 0
             game_over += 1
-            for i_rect in grid:
-                pygame.draw.rect(game_screen, get_color(), i_rect)
-                scr.blit(game_screen, (20, 20))
-                pygame.display.flip()
-                clock.tick(200)
-                pygame.time.wait(6)
+    
     if game_over:
+        pygame.mixer.music.pause()
+        game_o.play()
+        field = [[0 for i in range(w)] for i in range(h)]
+        fall_count = 0
+        fall_speed = 60
+        fall_limit = 2000
+        money = 0
+        minutes = 2
+        seconds = 0
+        milseconds = 0
+        for i_rect in grid:
+            pygame.draw.rect(game_screen, get_color(), i_rect)
+            scr.blit(game_screen, (20, 20))
+            pygame.display.flip()
+            clock.tick(200)
+            pygame.time.wait(6)
         pygame.mixer.music.unpause()
         pygame.mixer.music.rewind()
             
