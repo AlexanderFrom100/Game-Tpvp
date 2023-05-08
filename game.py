@@ -58,6 +58,7 @@ pygame.mixer.music.load('Tetris.mp3')
 pygame.mixer.music.play()
 
 line_com = pygame.mixer.Sound('line_complete.mp3')
+game_o = pygame.mixer.Sound('game-over.mp3')
     
 def check_borders():
     if figure[i].x<0 or figure[i].x>w-1:
@@ -175,6 +176,7 @@ while True:
     for i in range(w):
         if field[0][i]:
             pygame.mixer.music.pause()
+            game_o.play()
             field = [[0 for i in range(w)] for i in range(h)]
             fall_count = 0
             fall_speed = 60
@@ -186,6 +188,7 @@ while True:
                 scr.blit(game_screen, (20, 20))
                 pygame.display.flip()
                 clock.tick(200)
+                pygame.time.wait(6)
     if game_over:
         pygame.mixer.music.unpause()
         pygame.mixer.music.rewind()
