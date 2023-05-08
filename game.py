@@ -6,10 +6,12 @@ w = 10
 h = 20
 Tile = 35
 screen = w * Tile, h * Tile
+res = 584, 732
 fps = 60
 
 pygame.init()
-game_screen = pygame.display.set_mode(screen)
+scr = pygame.display.set_mode(res)
+game_screen = pygame.Surface(screen)
 clock = pygame.time.Clock()
 
 grid = [pygame.Rect(x * Tile, y * Tile, Tile, Tile) for x in range(w) for y in range(h)]
@@ -32,6 +34,11 @@ fall_limit = 2000
 
 figure = deepcopy(choice(figures))
 
+bg = pygame.image.load('tetris1.jpg').convert()
+
+get_color = lambda : (randrange(30,256), randrange(30,256), randrange(30,256))
+color = get_color()
+
 def check_borders():
     if figure[i].x<0 or figure[i].x>w-1:
         return False
@@ -42,6 +49,8 @@ def check_borders():
 while True:
     dx = 0
     rotate = False
+    scr.blit(bg, (0, 0))
+    scr.blit(game_screen, (20,20))
     game_screen.fill(pygame.Color('black'))
     
     for event in pygame.event.get():
@@ -75,7 +84,8 @@ while True:
             figure[i].y += 1
             if not check_borders():
                 for i in range(4):
-                    field[figure_old[i].y][figure_old[i].x] = pygame.Color('white')
+                    field[figure_old[i].y][figure_old[i].x] = color
+                color = get_color()
                 figure = deepcopy(choice(figures))
                 fall_limit = 2000
                 break
@@ -107,7 +117,7 @@ while True:
     for i in range(4):
         figures_rect.x = figure[i].x * Tile
         figures_rect.y = figure[i].y * Tile
-        pygame.draw.rect(game_screen, pygame.Color('white'),figures_rect)
+        pygame.draw.rect(game_screen, color,figures_rect)
         
     for y, row in enumerate(field):
         for x, col in enumerate(row):
