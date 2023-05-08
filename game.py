@@ -32,8 +32,6 @@ fall_count = 0
 fall_speed = 60
 fall_limit = 2000
 
-figure = deepcopy(choice(figures))
-
 bg = pygame.image.load('tetris1.jpg').convert()
 
 main_font = pygame.font.Font('font.ttf', 45)
@@ -42,7 +40,11 @@ font = pygame.font.Font('font.ttf', 35)
 title = main_font.render('TETRIS', True, pygame.Color('cyan'))
 
 get_color = lambda : (randrange(30,256), randrange(30,256), randrange(30,256))
+
+figure = deepcopy(choice(figures))
+next_figure = deepcopy(choice(figures))
 color = get_color()
+next_color = get_color()
 
 def check_borders():
     if figure[i].x<0 or figure[i].x>w-1:
@@ -90,8 +92,9 @@ while True:
             if not check_borders():
                 for i in range(4):
                     field[figure_old[i].y][figure_old[i].x] = color
-                color = get_color()
-                figure = deepcopy(choice(figures))
+                figure = next_figure
+                color = next_color
+                figure = deepcopy(choice(figures)), get_color()
                 fall_limit = 2000
                 break
     
@@ -129,6 +132,11 @@ while True:
             if col:
                 figures_rect.x, figures_rect.y = x*Tile, y*Tile
                 pygame.draw.rect(game_screen, col, figures_rect)
+        
+    for i in range(4):            
+        figures_rect.x = next_figure[i].x * Tile + 300
+        figures_rect.y = next_figure[i].y * Tile + 105
+        pygame.draw.rect(scr, next_color,figures_rect)
                 
     scr.blit(title, (395, 20))
             
