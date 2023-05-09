@@ -42,7 +42,7 @@ font = pygame.font.Font('font.ttf', 35)
 title = main_font.render('TETRIS', True, pygame.Color('cyan'))
 t_score = font.render('money:', True, pygame.Color('green'))
 next = font.render('Next:', True, pygame.Color('red'))
-time = font.render('Time:', True, pygame.Color('yellow'))
+time = font.render('Time:', True, pygame.Color('orange'))
 
 get_color = lambda : (randrange(60,256), randrange(60,256), randrange(60,256))
 
@@ -56,7 +56,7 @@ lines = 0
 score = {0:0, 1:1, 2:2, 3:6, 4:12}
 
 minutes = 2
-seconds = 0
+seconds = 1
 milseconds = 0
 
 pygame.mixer.music.load('Tetris.mp3')
@@ -179,8 +179,13 @@ while True:
     scr.blit(next, (410,190))
     scr.blit(time, (410, 300))
     scr.blit(font.render(str(minutes), True, pygame.Color('black')), (440, 350))
-    scr.blit(font.render(':', True, pygame.Color('black')), (480, 345))
-    scr.blit(font.render(str(seconds), True, pygame.Color('black')), (500, 350))
+    scr.blit(font.render(':', True, pygame.Color('black')), (470, 345))
+    
+    if seconds < 10:
+        scr.blit(font.render('0', True, pygame.Color('black')), (480, 350))
+        scr.blit(font.render(str(seconds), True, pygame.Color('black')), (505, 350))
+    else:
+        scr.blit(font.render(str(seconds), True, pygame.Color('black')), (480, 350))
     
     if milseconds == 0:
         if seconds == 0:
@@ -207,7 +212,7 @@ while True:
         fall_limit = 2000
         money = 0
         minutes = 2
-        seconds = 0
+        seconds = 1
         milseconds = 0
         for i_rect in grid:
             pygame.draw.rect(game_screen, get_color(), i_rect)
