@@ -235,3 +235,10 @@ def play_tet():
         pygame.display.flip()
         clock.tick(fps)
         
+def menu():
+    Bg = pygame.image.load('Game_logo.jpg').convert()
+    scr = pygame.display.set_mode(800, 800)
+    while True:
+        scr.blit(Bg, (0, 0))
+        
+menu()
