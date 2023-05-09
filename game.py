@@ -53,7 +53,7 @@ next_color = get_color()
 
 money = 0
 lines = 0
-score = {0:0, 1:1, 2:2, 3:6, 4:12}
+score = {0:0, 1:100, 2:200, 3:600, 4:1200}
 
 minutes = 2
 seconds = 1
