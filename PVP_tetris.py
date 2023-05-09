@@ -88,7 +88,7 @@ def play_tet():
         next_screen.fill(pygame.Color('white'))
         
         for i in range(lines):
-            pygame.time.wait(200)
+            pygame.time.wait(150)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -236,9 +236,17 @@ def play_tet():
         clock.tick(fps)
         
 def menu():
-    Bg = pygame.image.load('Game_logo.jpg').convert()
-    scr = pygame.display.set_mode(800, 800)
+    Bg = pygame.image.load('GameLogo.jpg')
+    res = 800, 800
+    scr = pygame.display.set_mode(res)
     while True:
+        clock = pygame.time.Clock()
+        fps = 60
         scr.blit(Bg, (0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+        pygame.display.flip()
+        clock.tick(fps)
         
 menu()
