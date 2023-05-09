@@ -51,7 +51,7 @@ next_figure = deepcopy(choice(figures))
 color = get_color()
 next_color = get_color()
 
-money = 0
+money = 1000
 lines = 0
 score = {0:0, 1:100, 2:200, 3:600, 4:1200}
 
@@ -175,11 +175,17 @@ while True:
                 
     scr.blit(title, (395, 20))
     scr.blit(t_score, (395, 600))
-    scr.blit(font.render(str(money), True, pygame.Color('white')), (440, 650))
+    if money > 99:
+        scr.blit(font.render(str(money), True, pygame.Color('white')), (430, 650))
+    elif money > 999:
+        scr.blit(font.render(str(money), True, pygame.Color('white')), (420, 650))
+    else:
+        scr.blit(font.render(str(money), True, pygame.Color('white')), (470, 650))
     scr.blit(next, (410,190))
     scr.blit(time, (410, 300))
     scr.blit(font.render(str(minutes), True, pygame.Color('black')), (440, 350))
     scr.blit(font.render(':', True, pygame.Color('black')), (470, 345))
+    scr.blit(font.render('$', True, pygame.Color('green')), (500, 650))
     
     if seconds < 10:
         scr.blit(font.render('0', True, pygame.Color('black')), (480, 350))
