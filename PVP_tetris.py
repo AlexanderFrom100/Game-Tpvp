@@ -2,8 +2,6 @@ import pygame
 from copy import deepcopy
 from random import choice, randrange
 
-
-
 pygame.init()
 
 def play_tet():
@@ -237,4 +235,3 @@ def play_tet():
         pygame.display.flip()
         clock.tick(fps)
         
-play_tet()
