@@ -239,6 +239,8 @@ def play_tet():
         
 def menu():
     font = pygame.font.SysFont('cambria', 50)
+    button_p = pygame.Rect(260, 705,110,60)
+    button_q = pygame.Rect(430, 705,110,60)
     play = font.render('PLAY', True, pygame.Color('white'))
     quit = font.render('QUIT', True, pygame.Color('white'))
     pygame.display.set_caption('Welcome to PVP TETRIS')
@@ -252,6 +254,22 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
-        pygame.display.flip()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button_q.collidepoint(event.pos):
+                    pygame.quit()
+                if button_p.collidepoint(event.pos):
+                    play_tet()
+        a,b = pygame.mouse.get_pos()
+        if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
+           play = font.render('PLAY', True, pygame.Color('green'))
+        else:
+            play = font.render('PLAY', True, pygame.Color('white'))
+        if button_q.x <= a <= button_q.x + 110 and button_q.y <= b <= button_q.y +60:
+           quit = font.render('QUIT', True, pygame.Color('red'))
+        else:
+            quit = font.render('QUIT', True, pygame.Color('white'))
+        scr.blit(quit,(button_q.x, button_q.y))
+        scr.blit(play,(button_p.x, button_p.y))
+        pygame.display.update()
         
 menu()
