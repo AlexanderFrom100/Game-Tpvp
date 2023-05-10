@@ -272,4 +272,15 @@ def menu():
         scr.blit(play,(button_p.x, button_p.y))
         pygame.display.update()
         
-menu()
+def shop():
+    res = 800, 800
+    scr = pygame.display.set_mode(res)
+    pygame.display.set_caption('Shop')
+    while True:
+        scr.fill((101, 67, 33))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+        pygame.display.update()
+        
+shop()
