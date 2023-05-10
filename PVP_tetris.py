@@ -273,14 +273,32 @@ def menu():
         pygame.display.update()
         
 def shop():
+    clock = pygame.time.Clock()
     res = 800, 800
     scr = pygame.display.set_mode(res)
     pygame.display.set_caption('Shop')
+    
+    
+    def col_change(col, dir) -> None:
+        for i in range(3):
+            col[i] += 1 * dir[i]
+            if col[i] >= 255 or col[i] <= 0:
+                dir[i] *= -1
+                
+    font = pygame.font.SysFont('cambria', 50)
+    col_dir = [-1, 1, 1]
+    def_col = [120, 120, 240]
+    
     while True:
+        title = font.render('GUN SHOP', True, def_col)
+        col_change(def_col, col_dir)
+        pygame.time.wait(5)
         scr.fill((101, 67, 33))
+        scr.blit(title, (300, 10))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
+        clock.tick()
         pygame.display.update()
         
 shop()
