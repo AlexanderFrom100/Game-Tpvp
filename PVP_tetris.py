@@ -261,7 +261,7 @@ def menu():
                     play_tet()
         a,b = pygame.mouse.get_pos()
         if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
-           play = font.render('PLAY', True, pygame.Color('green'))
+           play = font.render('PLAY', True, pygame.Color('cyan'))
         else:
             play = font.render('PLAY', True, pygame.Color('white'))
         if button_q.x <= a <= button_q.x + 110 and button_q.y <= b <= button_q.y +60:
