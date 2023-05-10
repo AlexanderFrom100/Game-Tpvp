@@ -1,4 +1,5 @@
-import pygame 
+import pygame
+import sys
 from copy import deepcopy
 from random import choice, randrange
 
@@ -74,6 +75,7 @@ def play_tet():
             return False
         return True
 
+    pygame.display.set_caption('Tetris')
     
     while True:
         if pygame.mixer.music.get_busy() == False:
@@ -236,17 +238,20 @@ def play_tet():
         clock.tick(fps)
         
 def menu():
+    font = pygame.font.SysFont('cambria', 50)
+    play = font.render('PLAY', True, pygame.Color('white'))
+    quit = font.render('QUIT', True, pygame.Color('white'))
+    pygame.display.set_caption('Welcome to PVP TETRIS')
     Bg = pygame.image.load('GameLogo.jpg')
     res = 800, 800
     scr = pygame.display.set_mode(res)
     while True:
-        clock = pygame.time.Clock()
-        fps = 60
         scr.blit(Bg, (0, 0))
+        scr.blit(play, (260, 705))
+        scr.blit(quit, (430, 705))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
         pygame.display.flip()
-        clock.tick(fps)
         
 menu()
