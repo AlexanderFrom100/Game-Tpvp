@@ -5,7 +5,9 @@ from random import choice, randrange
 
 pygame.init()
 
-def play_tet():
+dollars = 0
+
+def play_tet(dollars):
     w = 10
     h = 20
     Tile = 35
@@ -218,21 +220,14 @@ def play_tet():
             pygame.mixer.music.pause()
             game_o.play()
             field = [[0 for i in range(w)] for i in range(h)]
-            fall_count = 0
-            fall_speed = 60
-            fall_limit = 2000
-            money = 0
-            minutes = 2
-            seconds = 1
-            milseconds = 0
+            dollars = money
             for i_rect in grid:
                 pygame.draw.rect(game_screen, get_color(), i_rect)
                 scr.blit(game_screen, (20, 20))
                 pygame.display.flip()
                 clock.tick(200)
                 pygame.time.wait(6)
-            pygame.mixer.music.unpause()
-            pygame.mixer.music.rewind()
+            shop(dollars)
                 
         pygame.display.flip()
         clock.tick(fps)
@@ -258,7 +253,7 @@ def menu():
                 if button_q.collidepoint(event.pos):
                     pygame.quit()
                 if button_p.collidepoint(event.pos):
-                    play_tet()
+                    play_tet(dollars)
         a,b = pygame.mouse.get_pos()
         if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
            play = font.render('PLAY', True, pygame.Color('cyan'))
@@ -272,7 +267,7 @@ def menu():
         scr.blit(play,(button_p.x, button_p.y))
         pygame.display.update()
         
-def shop():
+def shop(dollars):
     clock = pygame.time.Clock()
     res = 800, 800
     scr = pygame.display.set_mode(res)
@@ -300,6 +295,7 @@ def shop():
         scr.blit(title, (300, 10))
         scr.blit(gun, (10, 60))
         scr.blit(buy, (120, 206))
+        scr.blit(o_font.render('$', True, pygame.Color('green')), (95, 206))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -309,8 +305,15 @@ def shop():
            buy = o_font.render('Buy', True, pygame.Color('yellow'))
         else:
            buy = o_font.render('Buy', True, pygame.Color('white'))
+           
+        if dollars > 999:
+            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (27, 206))
+        elif dollars > 99:
+            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (43, 206))
+        else:
+            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (77, 206))
         
         clock.tick()
         pygame.display.update()
         
-shop()
+menu()
