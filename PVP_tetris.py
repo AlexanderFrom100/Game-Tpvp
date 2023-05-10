@@ -277,7 +277,11 @@ def shop():
     res = 800, 800
     scr = pygame.display.set_mode(res)
     pygame.display.set_caption('Shop')
-    
+    font = pygame.font.SysFont('cambria', 50)
+    o_font = pygame.font.SysFont('cambria', 30)
+    button_b = pygame.Rect(120, 206,50,40)
+    buy = o_font.render('Buy', True, pygame.Color('white'))
+    gun = pygame.image.load('Makarov2.png')
     
     def col_change(col, dir) -> None:
         for i in range(3):
@@ -285,19 +289,27 @@ def shop():
             if col[i] >= 255 or col[i] <= 0:
                 dir[i] *= -1
                 
-    font = pygame.font.SysFont('cambria', 50)
     col_dir = [-1, 1, 1]
     def_col = [120, 120, 240]
     
     while True:
         title = font.render('GUN SHOP', True, def_col)
         col_change(def_col, col_dir)
-        pygame.time.wait(5)
+        pygame.time.wait(10)
         scr.fill((101, 67, 33))
         scr.blit(title, (300, 10))
+        scr.blit(gun, (10, 60))
+        scr.blit(buy, (120, 206))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
+        
+        a,b = pygame.mouse.get_pos()        
+        if button_b.x <= a <= button_b.x + 50 and button_b.y <= b <= button_b.y + 40:
+           buy = o_font.render('Buy', True, pygame.Color('yellow'))
+        else:
+           buy = o_font.render('Buy', True, pygame.Color('white'))
+        
         clock.tick()
         pygame.display.update()
         
