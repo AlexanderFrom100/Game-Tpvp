@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = 1000
+dollars = 0
 
 def play_tet(dollars):
     w = 10
@@ -323,4 +323,4 @@ def shop(dollars):
         clock.tick()
         pygame.display.update()
         
-shop(dollars)
+menu()
