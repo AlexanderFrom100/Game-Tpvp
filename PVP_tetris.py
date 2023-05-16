@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = 0
+dollars = 1000
 
 def play_tet(dollars):
     w = 10
@@ -295,10 +295,17 @@ def shop(dollars):
         scr.blit(title, (300, 10))
         scr.blit(gun, (10, 60))
         scr.blit(buy, (120, 206))
+        scr.blit(o_font.render('100', True, pygame.Color('white')), (43, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (95, 206))
+        scr.blit(o_font.render('$', True, pygame.Color('green')), (145, 20))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if(dollars <= 0):
+                    break
+                if button_b.collidepoint(event.pos):
+                    dollars -= 100
         
         a,b = pygame.mouse.get_pos()        
         if button_b.x <= a <= button_b.x + 50 and button_b.y <= b <= button_b.y + 40:
@@ -307,13 +314,13 @@ def shop(dollars):
            buy = o_font.render('Buy', True, pygame.Color('white'))
            
         if dollars > 999:
-            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (27, 206))
+            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (77, 20))
         elif dollars > 99:
-            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (43, 206))
+            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (93, 20))
         else:
-            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (77, 206))
+            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (127, 20))
         
         clock.tick()
         pygame.display.update()
         
-menu()
+shop(dollars)
