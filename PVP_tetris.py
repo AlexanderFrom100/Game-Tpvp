@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = 1000
+dollars = 0
 
 def play_tet(dollars):
     w = 10
@@ -271,12 +271,15 @@ def shop(dollars):
     clock = pygame.time.Clock()
     res = 800, 800
     scr = pygame.display.set_mode(res)
+    price = 0
     pygame.display.set_caption('Shop')
     font = pygame.font.SysFont('cambria', 50)
     o_font = pygame.font.SysFont('cambria', 30)
     money = o_font.render('Money:', True, pygame.Color('yellow'))
     button_b = pygame.Rect(220, 206,50,40)
+    button_b2 = pygame.Rect(658, 206,50,40)
     buy = o_font.render('Buy', True, pygame.Color('white'))
+    buy2 = o_font.render('Buy', True, pygame.Color('white'))
     gun = pygame.image.load('Makarov2.png')
     Ak_gun = pygame.image.load('Ak-47.png')
     
@@ -298,24 +301,35 @@ def shop(dollars):
         scr.blit(money, (30, 18))
         scr.blit(gun, (50, 60))
         scr.blit(buy, (220, 206))
+        scr.blit(buy2, (658, 206))
         scr.blit(Ak_gun, (325, 60))
         scr.blit(o_font.render('100', True, pygame.Color('white')), (143, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (195, 206))
+        scr.blit(o_font.render('800', True, pygame.Color('white')), (575, 206))
+        scr.blit(o_font.render('$', True, pygame.Color('green')), (628, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (195, 20))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if(dollars <= 0):
+                if(dollars < price or dollars <= 0):
                     break
                 if button_b.collidepoint(event.pos):
-                    dollars -= 100
+                    dollars -= price
+                if button_b2.collidepoint(event.pos):
+                    dollars -= price
         
         a,b = pygame.mouse.get_pos()        
         if button_b.x <= a <= button_b.x + 50 and button_b.y <= b <= button_b.y + 40:
            buy = o_font.render('Buy', True, pygame.Color('yellow'))
+           price = 100
         else:
            buy = o_font.render('Buy', True, pygame.Color('white'))
+        if button_b2.x <= a <= button_b2.x + 50 and button_b2.y <= b <= button_b2.y + 40:
+           buy2 = o_font.render('Buy', True, pygame.Color('yellow'))
+           price = 800
+        else:
+           buy2 = o_font.render('Buy', True, pygame.Color('white'))
            
         if dollars > 999:
             scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (127, 20))
@@ -327,4 +341,4 @@ def shop(dollars):
         clock.tick()
         pygame.display.update()
         
-shop(dollars)
+menu()
