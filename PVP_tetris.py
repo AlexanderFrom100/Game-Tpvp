@@ -190,15 +190,15 @@ def play_tet(dollars):
             scr.blit(font.render(str(money), True, pygame.Color('white')), (465, 650))
         scr.blit(next, (410,190))
         scr.blit(time, (410, 300))
-        scr.blit(font.render(str(minutes), True, pygame.Color('black')), (440, 350))
-        scr.blit(font.render(':', True, pygame.Color('black')), (470, 345))
+        scr.blit(font.render(str(minutes), True, pygame.Color('gray')), (420, 350))
+        scr.blit(font.render(':', True, pygame.Color('gray')), (450, 345))
         scr.blit(font.render('$', True, pygame.Color('green')), (500, 650))
         
         if seconds < 10:
-            scr.blit(font.render('0', True, pygame.Color('black')), (480, 350))
-            scr.blit(font.render(str(seconds), True, pygame.Color('black')), (505, 350))
+            scr.blit(font.render('0', True, pygame.Color('gray')), (460, 350))
+            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (485, 350))
         else:
-            scr.blit(font.render(str(seconds), True, pygame.Color('black')), (480, 350))
+            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (460, 350))
         
         if milseconds == 0:
             if seconds == 0:
