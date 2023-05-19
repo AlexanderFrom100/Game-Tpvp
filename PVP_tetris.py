@@ -137,7 +137,7 @@ def play_tet(dollars):
                 if event.key == pygame.K_UP:
                     rotate2 = True
             else:
-                #fall_limit = 2000
+                fall_limit = 2000
                 fall_limit2 = 2000
         
                 
