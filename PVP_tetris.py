@@ -12,7 +12,7 @@ def play_tet(dollars):
     h = 20
     Tile = 35
     screen = w * Tile, h * Tile
-    res = 954, 732
+    res = 1208, 732
     fps = 60
     next_scr = 150, 150
     
@@ -106,11 +106,11 @@ def play_tet(dollars):
         rotate = False
         rotate2 = False
         scr.blit(bg, (0, 0))
-        scr.blit(game_screen, (20,20))
-        scr.blit(game_screen2, (578,20))
+        scr.blit(game_screen, (274,20))
+        scr.blit(game_screen2, (832,20))
         game_screen.fill(pygame.Color('black'))
         game_screen2.fill(pygame.Color('black'))
-        scr.blit(next_screen, (400,80))
+        scr.blit(next_screen, (654,80))
         next_screen.fill(pygame.Color('white'))
         
         for i in range(lines):
@@ -323,8 +323,8 @@ def play_tet(dollars):
             for i_rect in grid:
                 pygame.draw.rect(game_screen, get_color(), i_rect)
                 pygame.draw.rect(game_screen2, get_color(), i_rect)
-                scr.blit(game_screen, (20, 20))
-                scr.blit(game_screen2, (578, 20))
+                scr.blit(game_screen, (274,20))
+                scr.blit(game_screen2, (832,20))
                 pygame.display.flip()
                 clock.tick(200)
                 pygame.time.wait(6)
