@@ -33,12 +33,18 @@ def play_tet(dollars):
                 [(0,0),(0,-1),(0,1),(-1,0)]]
 
     figures = [[pygame.Rect(x+w//2, y+1, 1, 1)for x,y in fig_pos] for fig_pos in figures_pos]
+    figures2 = [[pygame.Rect(x+w//2, y+1, 1, 1)for x,y in fig_pos] for fig_pos in figures_pos]
     figures_rect = pygame.Rect(0,0,Tile-2,Tile-2)
+    figures_rect2 = pygame.Rect(0,0,Tile-2,Tile-2)
     field = [[0 for i in range(w)]for j in range(h)]
+    field2 = [[0 for i in range(w)]for j in range(h)]
 
     fall_count = 0
     fall_speed = 60
     fall_limit = 2000
+    fall_count2 = 0
+    fall_speed2 = 60
+    fall_limit2 = 2000
 
     bg = pygame.image.load('tetris1.jpg').convert()
 
@@ -53,9 +59,13 @@ def play_tet(dollars):
     get_color = lambda : (randrange(60,256), randrange(60,256), randrange(60,256))
 
     figure = deepcopy(choice(figures))
+    figure2 = deepcopy(choice(figures2))
     next_figure = deepcopy(choice(figures))
+    next_figure2 = deepcopy(choice(figures2))
     color = get_color()
     next_color = get_color()
+    color2 = get_color()
+    next_color2 = get_color()
 
     money = 0
     lines = 0
@@ -77,6 +87,13 @@ def play_tet(dollars):
         elif figure[i].y>h-1 or field[figure[i].y][figure[i].x]:
             return False
         return True
+    
+    def check_borders2():
+        if figure2[i].x<0 or figure2[i].x>w-1:
+            return False
+        elif figure2[i].y>h-1 or field2[figure2[i].y][figure2[i].x]:
+            return False
+        return True
 
     pygame.display.set_caption('Tetris')
     
@@ -85,11 +102,14 @@ def play_tet(dollars):
             pygame.mixer.music.play()
         game_over = 0
         dx = 0
+        dx2 = 0
         rotate = False
+        rotate2 = False
         scr.blit(bg, (0, 0))
         scr.blit(game_screen, (20,20))
         scr.blit(game_screen2, (578,20))
         game_screen.fill(pygame.Color('black'))
+        game_screen2.fill(pygame.Color('black'))
         scr.blit(next_screen, (400,80))
         next_screen.fill(pygame.Color('white'))
         
@@ -118,16 +138,25 @@ def play_tet(dollars):
                     rotate2 = True
             else:
                 fall_limit = 2000
+                fall_limit2 = 2000
                 
         
         figure_old = deepcopy(figure)
+        figure_old2 = deepcopy(figure2)
         for i in range(4):
             figure[i].x += dx
             if not check_borders():
                 figure = deepcopy(figure_old)
                 break
             
+        for i in range(4):
+            figure2[i].x += dx2
+            if not check_borders2():
+                figure2 = deepcopy(figure_old2)
+                break
+            
         fall_count += fall_speed
+        fall_count2 += fall_speed2
         if fall_count > fall_limit:
             fall_count = 0
             figure_old = deepcopy(figure)
@@ -143,6 +172,21 @@ def play_tet(dollars):
                     fall_limit = 2000
                     break
         
+        if fall_count2 > fall_limit2:
+            fall_count2 = 0
+            figure_old2 = deepcopy(figure2)
+            for i in range(4):
+                figure2[i].y += 1
+                if not check_borders2():
+                    for i in range(4):
+                        field2[figure_old2[i].y][figure_old2[i].x] = color2
+                    figure2 = next_figure2
+                    color2 = next_color2
+                    next_figure2 = deepcopy(choice(figures2))
+                    next_color2 = get_color()
+                    fall_limit2 = 2000
+                    break
+        
         center = figure[0]
         figure_old = deepcopy(figure)
         for i in range(4):
@@ -153,6 +197,18 @@ def play_tet(dollars):
                 figure[i].y = center.y + y
                 if not check_borders():
                     figure = deepcopy(figure_old)
+                    break
+                
+        center2 = figure2[0]
+        figure_old2 = deepcopy(figure2)
+        for i in range(4):
+            if rotate2:
+                x = figure2[i].y - center2.y
+                y = figure2[i].x - center2.x
+                figure2[i].x = center2.x - x
+                figure2[i].y = center2.y + y
+                if not check_borders2():
+                    figure2 = deepcopy(figure_old2)
                     break
         
         line = h-1
@@ -169,26 +225,58 @@ def play_tet(dollars):
                 fall_speed += 3
                 lines += 1
                 line_com.play()
+                
+        line2 = h-1
+        lines2 = 0
+        for row in range(h-1, -1, -1):
+            count2 = 0
+            for i in range(w):
+                if field2[row][i]:
+                    count2+=1
+                field2[line2][i] = field2[row][i]
+            if count2 < w:
+                line2 -= 1
+            else:
+                fall_speed2 += 3
+                lines2 += 1
+                line_com.play()
         
         money += score[lines]
         
         [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
+        [pygame.draw.rect(game_screen2, (100,100,100), i_rect, 1) for i_rect in grid]
         
         for i in range(4):
             figures_rect.x = figure[i].x * Tile
             figures_rect.y = figure[i].y * Tile
             pygame.draw.rect(game_screen, color,figures_rect)
             
+        for i in range(4):
+            figures_rect2.x = figure2[i].x * Tile
+            figures_rect2.y = figure2[i].y * Tile
+            pygame.draw.rect(game_screen2, color2,figures_rect2)
+
         for y, row in enumerate(field):
             for x, col in enumerate(row):
                 if col:
                     figures_rect.x, figures_rect.y = x*Tile, y*Tile
                     pygame.draw.rect(game_screen, col, figures_rect)
+                    
+        for y, row in enumerate(field2):
+            for x, col in enumerate(row):
+                if col:
+                    figures_rect2.x, figures_rect2.y = x*Tile, y*Tile
+                    pygame.draw.rect(game_screen2, col, figures_rect2)
             
         for i in range(4):            
             figures_rect.x = next_figure[i].x * Tile + 300
             figures_rect.y = next_figure[i].y * Tile + 105
             pygame.draw.rect(scr, next_color,figures_rect)
+            
+        for i in range(4):            
+            figures_rect2.x = next_figure2[i].x * Tile + 300
+            figures_rect2.y = next_figure2[i].y * Tile + 105
+            pygame.draw.rect(scr, next_color2,figures_rect2)
                     
         scr.blit(title, (395, 20))
         scr.blit(t_score, (395, 600))
@@ -225,6 +313,10 @@ def play_tet(dollars):
         for i in range(w):
             if field[0][i]:
                 game_over += 1
+                
+        for i in range(w):
+            if field2[0][i]:
+                game_over += 1
         
         if game_over:
             pygame.mixer.music.pause()
@@ -233,7 +325,9 @@ def play_tet(dollars):
             dollars = money
             for i_rect in grid:
                 pygame.draw.rect(game_screen, get_color(), i_rect)
+                pygame.draw.rect(game_screen2, get_color(), i_rect)
                 scr.blit(game_screen, (20, 20))
+                scr.blit(game_screen2, (578, 20))
                 pygame.display.flip()
                 clock.tick(200)
                 pygame.time.wait(6)
