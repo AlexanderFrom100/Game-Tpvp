@@ -136,9 +136,6 @@ def play_tet(dollars):
                     fall_limit2 = 100
                 if event.key == pygame.K_UP:
                     rotate2 = True
-            else:
-                fall_limit2 = 2000
-        
                 
         
         figure_old = deepcopy(figure)
