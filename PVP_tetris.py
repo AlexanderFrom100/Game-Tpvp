@@ -12,12 +12,13 @@ def play_tet(dollars):
     h = 20
     Tile = 35
     screen = w * Tile, h * Tile
-    res = 584, 732
+    res = 954, 732
     fps = 60
     next_scr = 150, 150
     
     scr = pygame.display.set_mode(res)
     game_screen = pygame.Surface(screen)
+    game_screen2 = pygame.Surface(screen)
     next_screen = pygame.Surface(next_scr)
     clock = pygame.time.Clock()
 
@@ -87,6 +88,7 @@ def play_tet(dollars):
         rotate = False
         scr.blit(bg, (0, 0))
         scr.blit(game_screen, (20,20))
+        scr.blit(game_screen2, (578,20))
         game_screen.fill(pygame.Color('black'))
         scr.blit(next_screen, (400,80))
         next_screen.fill(pygame.Color('white'))
@@ -106,6 +108,14 @@ def play_tet(dollars):
                     fall_limit = 100
                 if event.key == pygame.K_UP:
                     rotate = True
+                if event.key == pygame.K_a:
+                    dx2 = -1
+                if event.key == pygame.K_d:
+                    dx2 = 1
+                if event.key == pygame.K_s:
+                    fall_limit2 = 100
+                if event.key == pygame.K_w:
+                    rotate2 = True
             else:
                 fall_limit = 2000
                 
