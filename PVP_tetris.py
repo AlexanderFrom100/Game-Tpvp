@@ -54,6 +54,7 @@ def play_tet(dollars):
     title = main_font.render('TETRIS', True, pygame.Color('cyan'))
     t_score = font.render('money:', True, pygame.Color('green'))
     next = font.render('Next:', True, pygame.Color('red'))
+    next2 = font.render('Next:', True, pygame.Color('blue'))
     time = font.render('Time:', True, pygame.Color('orange'))
 
     get_color = lambda : (randrange(60,256), randrange(60,256), randrange(60,256))
@@ -106,11 +107,12 @@ def play_tet(dollars):
         rotate = False
         rotate2 = False
         scr.blit(bg, (0, 0))
-        scr.blit(game_screen, (274,20))
-        scr.blit(game_screen2, (832,20))
+        scr.blit(game_screen, (137,20))
+        scr.blit(game_screen2, (695,20))
         game_screen.fill(pygame.Color('black'))
         game_screen2.fill(pygame.Color('black'))
-        scr.blit(next_screen, (654,80))
+        scr.blit(next_screen, (-15,80))
+        scr.blit(next_screen, (1048,80))
         next_screen.fill(pygame.Color('white'))
         
         for i in range(lines):
@@ -266,34 +268,35 @@ def play_tet(dollars):
                     pygame.draw.rect(game_screen2, col, figures_rect2)
             
         for i in range(4):            
-            figures_rect.x = next_figure[i].x * Tile + 300
+            figures_rect.x = next_figure[i].x * Tile - 100
             figures_rect.y = next_figure[i].y * Tile + 105
             pygame.draw.rect(scr, next_color,figures_rect)
             
         for i in range(4):            
-            figures_rect2.x = next_figure2[i].x * Tile + 300
+            figures_rect2.x = next_figure2[i].x * Tile + 950
             figures_rect2.y = next_figure2[i].y * Tile + 105
             pygame.draw.rect(scr, next_color2,figures_rect2)
                     
-        scr.blit(title, (649, 20))
-        scr.blit(t_score, (395, 600))
+        scr.blit(title, (512, 20))
+        scr.blit(t_score, (10, 600))
         if money > 999:
-            scr.blit(font.render(str(money), True, pygame.Color('white')), (400, 650))
+            scr.blit(font.render(str(money), True, pygame.Color('white')), (263, 650))
         elif money > 99:
-            scr.blit(font.render(str(money), True, pygame.Color('white')), (425, 650))
+            scr.blit(font.render(str(money), True, pygame.Color('white')), (288, 650))
         else:
-            scr.blit(font.render(str(money), True, pygame.Color('white')), (465, 650))
-        scr.blit(next, (664,190))
-        scr.blit(time, (664, 300))
-        scr.blit(font.render(str(minutes), True, pygame.Color('gray')), (674, 350))
-        scr.blit(font.render(':', True, pygame.Color('gray')), (704, 345))
-        scr.blit(font.render('$', True, pygame.Color('green')), (500, 650))
+            scr.blit(font.render(str(money), True, pygame.Color('white')), (328, 650))
+        scr.blit(next, (10,190))
+        scr.blit(next2, (1050,190))
+        scr.blit(time, (527, 300))
+        scr.blit(font.render(str(minutes), True, pygame.Color('gray')), (537, 350))
+        scr.blit(font.render(':', True, pygame.Color('gray')), (567, 345))
+        scr.blit(font.render('$', True, pygame.Color('green')), (363, 650))
         
         if seconds < 10:
-            scr.blit(font.render('0', True, pygame.Color('gray')), (714, 350))
-            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (739, 350))
+            scr.blit(font.render('0', True, pygame.Color('gray')), (577, 350))
+            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (602, 350))
         else:
-            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (714, 350))
+            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (577, 350))
         
         if milseconds == 0:
             if seconds == 0:
@@ -323,8 +326,8 @@ def play_tet(dollars):
             for i_rect in grid:
                 pygame.draw.rect(game_screen, get_color(), i_rect)
                 pygame.draw.rect(game_screen2, get_color(), i_rect)
-                scr.blit(game_screen, (274,20))
-                scr.blit(game_screen2, (832,20))
+                scr.blit(game_screen, (137,20))
+                scr.blit(game_screen2, (695,20))
                 pygame.display.flip()
                 clock.tick(200)
                 pygame.time.wait(6)
