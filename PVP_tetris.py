@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = [1200, 3500]
+dollars = [0, 0]
 
 def play_tet(dollars):
     w = 10
@@ -68,7 +68,7 @@ def play_tet(dollars):
     color2 = get_color()
     next_color2 = get_color()
 
-    money = [0, 0]
+    money = dollars
     lines = 0
     score = {0:0, 1:100, 2:200, 3:600, 4:1200}
 
@@ -300,8 +300,8 @@ def play_tet(dollars):
         scr.blit(time, (527, 300))
         scr.blit(font.render(str(minutes), True, pygame.Color('white')), (537, 350))
         scr.blit(font.render(':', True, pygame.Color('white')), (567, 345))
-        scr.blit(font.render('$', True, pygame.Color('green')), (105, 650))
-        scr.blit(font.render('$', True, pygame.Color('green')), (1135, 650))
+        scr.blit(font.render('$', True, pygame.Color('green')), (108, 650))
+        scr.blit(font.render('$', True, pygame.Color('green')), (1148, 650))
         
         if seconds < 10:
             scr.blit(font.render('0', True, pygame.Color('white')), (577, 350))
@@ -391,7 +391,7 @@ def shop(dollars):
     pygame.display.set_caption('Shop')
     font = pygame.font.SysFont('cambria', 50)
     o_font = pygame.font.SysFont('cambria', 30)
-    money = o_font.render('Money:', True, pygame.Color('yellow'))
+    money = o_font.render('Money:', True, pygame.Color('blue'))
     button_b = pygame.Rect(220, 206,50,40)
     button_b2 = pygame.Rect(658, 206,50,40)
     buy = o_font.render('Buy', True, pygame.Color('white'))
@@ -432,11 +432,13 @@ def shop(dollars):
             if event.type == pygame.QUIT:
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if button_n.collidepoint(event.pos):
-                    if player_c >= 1:
-                        break
-                    player_c += 1
-                if(dollars[player_c] < price or dollars[player_c] <= 0):
+                if player_c > 0:
+                    if button_n.collidepoint(event.pos):
+                        play_tet(dollars)
+                else:
+                    if button_n.collidepoint(event.pos):
+                        player_c += 1
+                if dollars[player_c] < price or dollars[player_c] <= 0:
                     break
                 if button_b.collidepoint(event.pos):
                     dollars[player_c] -= price
@@ -458,6 +460,7 @@ def shop(dollars):
            buy2 = o_font.render('Buy', True, pygame.Color('white'))
         
         if player_c != 0:
+            money = o_font.render('Money:', True, pygame.Color('red'))
             next_p = o_font.render('End Shop', True, pygame.Color('white'))
             button_n = pygame.Rect(628, 20,122,40)
             if button_n.x <= a <= button_n.x + 122 and button_n.y <= b <= button_n.y + 40:
@@ -480,4 +483,4 @@ def shop(dollars):
         clock.tick()
         pygame.display.update()
         
-shop(dollars)
+menu()
