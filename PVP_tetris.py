@@ -457,7 +457,7 @@ def shop(dollars):
         else:
            buy2 = o_font.render('Buy', True, pygame.Color('white'))
         
-        if player_c == 1:
+        if player_c != 0:
             next_p = o_font.render('End Shop', True, pygame.Color('white'))
             button_n = pygame.Rect(628, 20,122,40)
             if button_n.x <= a <= button_n.x + 122 and button_n.y <= b <= button_n.y + 40:
