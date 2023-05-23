@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = 0
+dollars = [0, 0]
 
 def play_tet(dollars):
     w = 10
@@ -68,7 +68,7 @@ def play_tet(dollars):
     color2 = get_color()
     next_color2 = get_color()
 
-    money = 0
+    money = [0, 0]
     lines = 0
     score = {0:0, 1:100, 2:200, 3:600, 4:1200}
 
@@ -240,7 +240,8 @@ def play_tet(dollars):
                 lines2 += 1
                 line_com.play()
         
-        money += score[lines]
+        money[0] += score[lines]
+        money[1] += score[lines2]
         
         [pygame.draw.rect(game_screen, (100,100,100), i_rect, 1) for i_rect in grid]
         [pygame.draw.rect(game_screen2, (100,100,100), i_rect, 1) for i_rect in grid]
@@ -278,19 +279,29 @@ def play_tet(dollars):
             pygame.draw.rect(scr, next_color2,figures_rect2)
                     
         scr.blit(title, (512, 20))
-        scr.blit(t_score, (10, 600))
-        if money > 999:
-            scr.blit(font.render(str(money), True, pygame.Color('white')), (263, 650))
-        elif money > 99:
-            scr.blit(font.render(str(money), True, pygame.Color('white')), (288, 650))
+        scr.blit(t_score, (5, 600))
+        scr.blit(t_score, (1050, 600))
+        if money[0] > 999:
+            scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (10, 650))
+        elif money[0] > 99:
+            scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (35, 650))
         else:
-            scr.blit(font.render(str(money), True, pygame.Color('white')), (328, 650))
+            scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (75, 650))
+            
+        if money[1] > 999:
+            scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1050, 650))
+        elif money[1] > 99:
+            scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1075, 650))
+        else:
+            scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1105, 650))
+        
         scr.blit(next, (10,190))
         scr.blit(next2, (1050,190))
         scr.blit(time, (527, 300))
         scr.blit(font.render(str(minutes), True, pygame.Color('gray')), (537, 350))
         scr.blit(font.render(':', True, pygame.Color('gray')), (567, 345))
-        scr.blit(font.render('$', True, pygame.Color('green')), (363, 650))
+        scr.blit(font.render('$', True, pygame.Color('green')), (105, 650))
+        scr.blit(font.render('$', True, pygame.Color('green')), (1135, 650))
         
         if seconds < 10:
             scr.blit(font.render('0', True, pygame.Color('gray')), (577, 350))
