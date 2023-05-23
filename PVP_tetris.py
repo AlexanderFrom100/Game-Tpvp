@@ -298,16 +298,16 @@ def play_tet(dollars):
         scr.blit(next, (10,190))
         scr.blit(next2, (1050,190))
         scr.blit(time, (527, 300))
-        scr.blit(font.render(str(minutes), True, pygame.Color('gray')), (537, 350))
-        scr.blit(font.render(':', True, pygame.Color('gray')), (567, 345))
+        scr.blit(font.render(str(minutes), True, pygame.Color('white')), (537, 350))
+        scr.blit(font.render(':', True, pygame.Color('white')), (567, 345))
         scr.blit(font.render('$', True, pygame.Color('green')), (105, 650))
         scr.blit(font.render('$', True, pygame.Color('green')), (1135, 650))
         
         if seconds < 10:
-            scr.blit(font.render('0', True, pygame.Color('gray')), (577, 350))
-            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (602, 350))
+            scr.blit(font.render('0', True, pygame.Color('white')), (577, 350))
+            scr.blit(font.render(str(seconds), True, pygame.Color('white')), (602, 350))
         else:
-            scr.blit(font.render(str(seconds), True, pygame.Color('gray')), (577, 350))
+            scr.blit(font.render(str(seconds), True, pygame.Color('white')), (577, 350))
         
         if milseconds == 0:
             if seconds == 0:
@@ -427,12 +427,12 @@ def shop(dollars):
             if event.type == pygame.QUIT:
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if(dollars < price or dollars <= 0):
+                if(dollars[0] < price or dollars[0] <= 0):
                     break
                 if button_b.collidepoint(event.pos):
-                    dollars -= price
+                    dollars[0] -= price
                 if button_b2.collidepoint(event.pos):
-                    dollars -= price
+                    dollars[0] -= price
         
         a,b = pygame.mouse.get_pos()        
         if button_b.x <= a <= button_b.x + 50 and button_b.y <= b <= button_b.y + 40:
@@ -446,12 +446,12 @@ def shop(dollars):
         else:
            buy2 = o_font.render('Buy', True, pygame.Color('white'))
            
-        if dollars > 999:
-            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (127, 20))
-        elif dollars > 99:
-            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (143, 20))
+        if dollars[0] > 999:
+            scr.blit(o_font.render(str(dollars[0]), True, pygame.Color('white')), (127, 20))
+        elif dollars[0] > 99:
+            scr.blit(o_font.render(str(dollars[0]), True, pygame.Color('white')), (143, 20))
         else:
-            scr.blit(o_font.render(str(dollars), True, pygame.Color('white')), (177, 20))
+            scr.blit(o_font.render(str(dollars[0]), True, pygame.Color('white')), (177, 20))
         
         clock.tick()
         pygame.display.update()
