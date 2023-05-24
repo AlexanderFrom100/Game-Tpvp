@@ -279,7 +279,7 @@ def play_tet(dollars):
                     pygame.draw.rect(game_screen2, col, figures_rect2)
             
         for i in range(4):            
-            figures_rect.x = next_figure[i].x * Tile - 100
+            figures_rect.x = next_figure[i].x * Tile - 110
             figures_rect.y = next_figure[i].y * Tile + 105
             if player_over:
                 pygame.draw.rect(scr, 'white',figures_rect)
@@ -328,7 +328,8 @@ def play_tet(dollars):
         if milseconds == 0:
             if seconds == 0:
                 if minutes == 0:
-                    game_over += 1
+                    player_over += 1
+                    player_over2 += 1
                 else:
                     seconds = 60
                     minutes -= 1
