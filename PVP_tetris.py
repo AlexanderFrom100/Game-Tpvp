@@ -109,6 +109,10 @@ def play_tet(dollars):
         dx2 = 0
         rotate = False
         rotate2 = False
+        if player_over:
+            game_screen.fill(pygame.Color('black'))
+        if player_over2:
+            game_screen2.fill(pygame.Color('black'))
         scr.blit(bg, (0, 0))
         scr.blit(game_screen, (137,20))
         scr.blit(game_screen2, (695,20))
@@ -277,12 +281,18 @@ def play_tet(dollars):
         for i in range(4):            
             figures_rect.x = next_figure[i].x * Tile - 100
             figures_rect.y = next_figure[i].y * Tile + 105
-            pygame.draw.rect(scr, next_color,figures_rect)
+            if player_over:
+                pygame.draw.rect(scr, 'white',figures_rect)
+            else:
+                pygame.draw.rect(scr, next_color,figures_rect)
             
         for i in range(4):            
             figures_rect2.x = next_figure2[i].x * Tile + 950
             figures_rect2.y = next_figure2[i].y * Tile + 105
-            pygame.draw.rect(scr, next_color2,figures_rect2)
+            if player_over2:
+                pygame.draw.rect(scr, 'white',figures_rect2)
+            else:
+                pygame.draw.rect(scr, next_color2,figures_rect2)
                     
         scr.blit(title, (512, 20))
         scr.blit(t_score, (5, 600))
