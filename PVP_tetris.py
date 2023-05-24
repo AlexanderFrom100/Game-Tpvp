@@ -75,6 +75,9 @@ def play_tet(dollars):
     minutes = 2
     seconds = 1
     milseconds = 0
+    
+    player_over = 0
+    player_over2 = 0
 
     pygame.mixer.music.load('Tetris.mp3')
     pygame.mixer.music.play()
@@ -325,26 +328,38 @@ def play_tet(dollars):
             
         
         for i in range(w):
+            if player_over:
+                break
             if field[0][i]:
-                game_over += 1
+                player_over += 1
+                game_o.play()
+                for i_rect in grid:
+                    pygame.draw.rect(game_screen, get_color(), i_rect)
+                    scr.blit(game_screen, (137,20))
+                    pygame.display.flip()
+                    clock.tick(200)
+                    pygame.time.wait(6)
                 
         for i in range(w):
+            if player_over2:
+                break
             if field2[0][i]:
-                game_over += 1
+                player_over2 += 1
+                game_o.play()
+                for i_rect in grid:
+                    pygame.draw.rect(game_screen2, get_color(), i_rect)
+                    scr.blit(game_screen2, (695,20))
+                    pygame.display.flip()
+                    clock.tick(200)
+                    pygame.time.wait(6)
+                break
+                
+        if player_over and player_over2:
+            game_over += 1
         
         if game_over:
             pygame.mixer.music.pause()
-            game_o.play()
-            field = [[0 for i in range(w)] for i in range(h)]
             dollars = money
-            for i_rect in grid:
-                pygame.draw.rect(game_screen, get_color(), i_rect)
-                pygame.draw.rect(game_screen2, get_color(), i_rect)
-                scr.blit(game_screen, (137,20))
-                scr.blit(game_screen2, (695,20))
-                pygame.display.flip()
-                clock.tick(200)
-                pygame.time.wait(6)
             shop(dollars)
                 
         pygame.display.flip()
