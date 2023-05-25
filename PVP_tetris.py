@@ -336,6 +336,8 @@ def play_tet(dollars):
             seconds -= 1
         milseconds -= 1
             
+        if player_over2:
+                scr.blit(g_o_scr, (695,20))
         
         for i in range(w):
             if player_over:
@@ -370,8 +372,6 @@ def play_tet(dollars):
             game_over += 1
         
         if game_over:
-            scr.blit(g_o_scr, (137,20))
-            scr.blit(g_o_scr, (695,20))
             pygame.mixer.music.pause()
             dollars = money
             shop(dollars)
