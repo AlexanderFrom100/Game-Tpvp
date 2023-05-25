@@ -47,6 +47,8 @@ def play_tet(dollars):
     fall_limit2 = 2000
 
     bg = pygame.image.load('tetris1.jpg').convert()
+    
+    g_o_scr = pygame.image.load('game_over.jpg').convert()
 
     main_font = pygame.font.Font('font.ttf', 45)
     font = pygame.font.Font('font.ttf', 35)
@@ -109,10 +111,7 @@ def play_tet(dollars):
         dx2 = 0
         rotate = False
         rotate2 = False
-        if player_over:
-            game_screen.fill(pygame.Color('black'))
-        if player_over2:
-            game_screen2.fill(pygame.Color('black'))
+        
         scr.blit(bg, (0, 0))
         scr.blit(game_screen, (137,20))
         scr.blit(game_screen2, (695,20))
@@ -340,6 +339,7 @@ def play_tet(dollars):
         
         for i in range(w):
             if player_over:
+                scr.blit(g_o_scr, (137,20))
                 break
             if field[0][i]:
                 player_over += 1
@@ -353,6 +353,7 @@ def play_tet(dollars):
                 
         for i in range(w):
             if player_over2:
+                scr.blit(g_o_scr, (695,20))
                 break
             if field2[0][i]:
                 player_over2 += 1
@@ -364,11 +365,13 @@ def play_tet(dollars):
                     clock.tick(200)
                     pygame.time.wait(6)
                 break
-                
+
         if player_over and player_over2:
             game_over += 1
         
         if game_over:
+            scr.blit(g_o_scr, (137,20))
+            scr.blit(g_o_scr, (695,20))
             pygame.mixer.music.pause()
             dollars = money
             shop(dollars)
