@@ -38,6 +38,8 @@ def play_tet(dollars):
     figures_rect2 = pygame.Rect(0,0,Tile-2,Tile-2)
     field = [[0 for i in range(w)]for j in range(h)]
     field2 = [[0 for i in range(w)]for j in range(h)]
+    
+    press = pygame.key.get_pressed()
 
     fall_count = 0
     fall_speed = 60
@@ -145,8 +147,10 @@ def play_tet(dollars):
                 if event.key == pygame.K_UP:
                     rotate2 = True
             if event.type == pygame.KEYUP:
-                fall_limit = 2000
-                fall_limit2 = 2000
+                if event.key == pygame.K_s:
+                    fall_limit = 2000
+                if event.key == pygame.K_DOWN:
+                    fall_limit2 = 2000
                 
         
         figure_old = deepcopy(figure)
@@ -520,11 +524,12 @@ def twodshoot():
     scr = pygame.display.set_mode(res)
     pygame.display.set_caption('Shooting')
     while True:
+        scr.fill(pygame.Color('light green'))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
-        clock.tick()
+        clock.tick(60)
         pygame.display.update()
     return
         
-twodshoot()
+menu()
