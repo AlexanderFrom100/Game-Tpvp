@@ -335,11 +335,10 @@ def play_tet(dollars):
             milseconds = 60
             seconds -= 1
         milseconds -= 1
-            
-        if player_over2:
-                scr.blit(g_o_scr, (695,20))
         
         for i in range(w):
+            if player_over2:
+                scr.blit(g_o_scr, (695,20))
             if player_over:
                 scr.blit(g_o_scr, (137,20))
                 break
