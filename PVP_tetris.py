@@ -38,8 +38,6 @@ def play_tet(dollars):
     figures_rect2 = pygame.Rect(0,0,Tile-2,Tile-2)
     field = [[0 for i in range(w)]for j in range(h)]
     field2 = [[0 for i in range(w)]for j in range(h)]
-    
-    press = pygame.key.get_pressed()
 
     fall_count = 0
     fall_speed = 60
