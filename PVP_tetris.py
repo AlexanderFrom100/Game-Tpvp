@@ -513,5 +513,18 @@ def shop(dollars):
         
         clock.tick()
         pygame.display.update()
+
+def twodshoot():
+    clock = pygame.time.Clock()
+    res = 1200, 750
+    scr = pygame.display.set_mode(res)
+    pygame.display.set_caption('Shooting')
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+        clock.tick()
+        pygame.display.update()
+    return
         
-menu()
+twodshoot()
