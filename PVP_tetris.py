@@ -298,19 +298,11 @@ def play_tet(dollars):
         scr.blit(title, (512, 20))
         scr.blit(t_score, (5, 600))
         scr.blit(t_score, (1050, 600))
-        if money[0] > 999:
-            scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (10, 650))
-        elif money[0] > 99:
-            scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (35, 650))
-        else:
-            scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (75, 650))
-            
-        if money[1] > 999:
-            scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1050, 650))
-        elif money[1] > 99:
-            scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1075, 650))
-        else:
-            scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1105, 650))
+        
+        n = len(str(money[0]))
+        n2 = len(str(money[1]))
+        scr.blit(font.render(str(money[0]), True, pygame.Color('white')), (105 - n*23, 650))
+        scr.blit(font.render(str(money[1]), True, pygame.Color('white')), (1145 - n2*23, 650))
         
         scr.blit(next, (10,190))
         scr.blit(next2, (1050,190))
