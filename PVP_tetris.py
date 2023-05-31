@@ -420,8 +420,10 @@ def shop(dollars):
     money = o_font.render('Money:', True, pygame.Color('blue'))
     button_b = pygame.Rect(170, 206,50,40)
     button_b2 = pygame.Rect(558, 206,50,40)
+    button_b3 = pygame.Rect(360, 366,50,40)
     buy = o_font.render('Buy', True, pygame.Color('white'))
     buy2 = o_font.render('Buy', True, pygame.Color('white'))
+    buy3 = o_font.render('Buy', True, pygame.Color('white'))
     next_p = o_font.render('Next Player', True, pygame.Color('white'))
     button_n = pygame.Rect(628, 20,150,40)
     gun = pygame.image.load('Makarov2.png')
@@ -447,9 +449,12 @@ def shop(dollars):
         scr.blit(gun, (50, 60))
         scr.blit(buy, (170, 206))
         scr.blit(buy2, (558, 206))
+        scr.blit(buy3, (360, 366))
         scr.blit(next_p, (628, 20))
         scr.blit(Ak_gun, (325, 60))
         scr.blit(pump, (50, 230))
+        scr.blit(o_font.render('1000', True, pygame.Color('white')), (253, 366))
+        scr.blit(o_font.render('$', True, pygame.Color('green')), (325, 366))
         scr.blit(o_font.render('100', True, pygame.Color('white')), (93, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (145, 206))
         scr.blit(o_font.render('800', True, pygame.Color('white')), (475, 206))
@@ -477,6 +482,8 @@ def shop(dollars):
                     dollars[player_c] -= price
                 if button_b2.collidepoint(event.pos):
                     dollars[player_c] -= price
+                if button_b3.collidepoint(event.pos):
+                    dollars[player_c] -= price
                 
         
         a,b = pygame.mouse.get_pos()        
@@ -491,6 +498,12 @@ def shop(dollars):
            price = 800
         else:
            buy2 = o_font.render('Buy', True, pygame.Color('white'))
+           
+        if button_b3.x <= a <= button_b3.x + 50 and button_b3.y <= b <= button_b3.y + 40:
+           buy3 = o_font.render('Buy', True, pygame.Color('yellow'))
+           price = 1000
+        else:
+           buy3 = o_font.render('Buy', True, pygame.Color('white'))
         
         if player_c != 0:
             money = o_font.render('Money:', True, pygame.Color('red'))
