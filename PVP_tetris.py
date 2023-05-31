@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = [0, 0]
+dollars = [3000, 3000]
 
 def play_tet(dollars):
     w = 10
@@ -416,15 +416,17 @@ def shop(dollars):
     pygame.display.set_caption('Shop')
     font = pygame.font.SysFont('cambria', 50)
     o_font = pygame.font.SysFont('cambria', 30)
+    sh_pl = font.render('Player turn:', True, pygame.Color('green'))
     money = o_font.render('Money:', True, pygame.Color('blue'))
-    button_b = pygame.Rect(220, 206,50,40)
-    button_b2 = pygame.Rect(658, 206,50,40)
+    button_b = pygame.Rect(170, 206,50,40)
+    button_b2 = pygame.Rect(558, 206,50,40)
     buy = o_font.render('Buy', True, pygame.Color('white'))
     buy2 = o_font.render('Buy', True, pygame.Color('white'))
     next_p = o_font.render('Next Player', True, pygame.Color('white'))
     button_n = pygame.Rect(628, 20,150,40)
     gun = pygame.image.load('Makarov2.png')
     Ak_gun = pygame.image.load('Ak-47.png')
+    pump = pygame.image.load('pump.png')
     
     def col_change(col, dir) -> None:
         for i in range(3):
@@ -443,15 +445,21 @@ def shop(dollars):
         scr.blit(title, (300, 10))
         scr.blit(money, (30, 18))
         scr.blit(gun, (50, 60))
-        scr.blit(buy, (220, 206))
-        scr.blit(buy2, (658, 206))
+        scr.blit(buy, (170, 206))
+        scr.blit(buy2, (558, 206))
         scr.blit(next_p, (628, 20))
         scr.blit(Ak_gun, (325, 60))
-        scr.blit(o_font.render('100', True, pygame.Color('white')), (143, 206))
-        scr.blit(o_font.render('$', True, pygame.Color('green')), (195, 206))
-        scr.blit(o_font.render('800', True, pygame.Color('white')), (575, 206))
-        scr.blit(o_font.render('$', True, pygame.Color('green')), (628, 206))
+        scr.blit(pump, (50, 230))
+        scr.blit(o_font.render('100', True, pygame.Color('white')), (93, 206))
+        scr.blit(o_font.render('$', True, pygame.Color('green')), (145, 206))
+        scr.blit(o_font.render('800', True, pygame.Color('white')), (475, 206))
+        scr.blit(o_font.render('$', True, pygame.Color('green')), (528, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (195, 20))
+        scr.blit(sh_pl, (210, 700))
+        if player_c:
+            scr.blit(font.render('2', True, pygame.Color('orange')), (470, 705))
+        else:
+            scr.blit(font.render('1', True, pygame.Color('orange')), (470, 705))
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -522,4 +530,4 @@ def twodshoot():
         pygame.display.update()
     return
         
-menu()
+shop(dollars)
