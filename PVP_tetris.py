@@ -430,6 +430,8 @@ def shop(dollars):
     Ak_gun = pygame.image.load('Ak-47.png')
     pump = pygame.image.load('pump.png')
     
+    g_eqip = pygame.image.load('Makarov_eqip.png')
+    
     def col_change(col, dir) -> None:
         for i in range(3):
             col[i] += 1 * dir[i]
@@ -453,6 +455,8 @@ def shop(dollars):
         scr.blit(next_p, (628, 20))
         scr.blit(Ak_gun, (325, 60))
         scr.blit(pump, (50, 230))
+        
+        scr.blit(g_eqip, (30, 400))
         scr.blit(o_font.render('1000', True, pygame.Color('white')), (253, 366))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (325, 366))
         scr.blit(o_font.render('100', True, pygame.Color('white')), (93, 206))
