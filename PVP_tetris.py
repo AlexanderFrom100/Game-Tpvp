@@ -424,13 +424,15 @@ def shop(dollars):
     buy = o_font.render('Buy', True, pygame.Color('white'))
     buy2 = o_font.render('Buy', True, pygame.Color('white'))
     buy3 = o_font.render('Buy', True, pygame.Color('white'))
+    button_e = pygame.Rect(40, 475,70,40)
+    equip = o_font.render('Equip', True, pygame.Color('white'))
     next_p = o_font.render('Next Player', True, pygame.Color('white'))
     button_n = pygame.Rect(628, 20,150,40)
     gun = pygame.image.load('Makarov2.png')
     Ak_gun = pygame.image.load('Ak-47.png')
     pump = pygame.image.load('pump.png')
     
-    g_eqip = pygame.image.load('Makarov_eqip.png')
+    g_equip = pygame.image.load('Makarov_eqip.png')
     
     def col_change(col, dir) -> None:
         for i in range(3):
@@ -456,7 +458,8 @@ def shop(dollars):
         scr.blit(Ak_gun, (325, 60))
         scr.blit(pump, (50, 230))
         
-        scr.blit(g_eqip, (30, 400))
+        scr.blit(g_equip, (30, 400))
+        scr.blit(equip, (40, 475))
         scr.blit(o_font.render('1000', True, pygame.Color('white')), (253, 366))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (325, 366))
         scr.blit(o_font.render('100', True, pygame.Color('white')), (93, 206))
@@ -502,6 +505,11 @@ def shop(dollars):
            price = 800
         else:
            buy2 = o_font.render('Buy', True, pygame.Color('white'))
+           
+        if button_e.x <= a <= button_e.x + 70 and button_e.y <= b <= button_e.y + 40:
+           equip = o_font.render('Equip', True, pygame.Color('yellow'))
+        else:
+           equip = o_font.render('Equip', True, pygame.Color('white'))
            
         if button_b3.x <= a <= button_b3.x + 50 and button_b3.y <= b <= button_b3.y + 40:
            buy3 = o_font.render('Buy', True, pygame.Color('yellow'))
