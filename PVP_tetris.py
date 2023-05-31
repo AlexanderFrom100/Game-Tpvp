@@ -460,11 +460,11 @@ def shop(dollars):
         scr.blit(o_font.render('800', True, pygame.Color('white')), (475, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (528, 206))
         scr.blit(o_font.render('$', True, pygame.Color('green')), (195, 20))
-        scr.blit(sh_pl, (210, 700))
+        scr.blit(sh_pl, (460, 700))
         if player_c:
-            scr.blit(font.render('2', True, pygame.Color('orange')), (470, 705))
+            scr.blit(font.render('2', True, pygame.Color('orange')), (720, 705))
         else:
-            scr.blit(font.render('1', True, pygame.Color('orange')), (470, 705))
+            scr.blit(font.render('1', True, pygame.Color('orange')), (720, 705))
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
