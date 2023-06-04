@@ -596,9 +596,7 @@ def twodshoot():
 
 
     player = Soldier('1x4', 200, 200, 3, 5)
-    enemy = Soldier('1x4r', 400, 200, 3, 5)
-
-
+    player2 = Soldier('1x4r', 400, 200, 3, 5)
 
     run = True
     while run:
@@ -608,7 +606,7 @@ def twodshoot():
         draw_bg()
 
         player.draw()
-        enemy.draw()
+        player2.draw()
 
         player.move(moving_left, moving_right)
 
