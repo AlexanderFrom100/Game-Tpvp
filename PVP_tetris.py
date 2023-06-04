@@ -556,9 +556,6 @@ def twodshoot():
 
     BG = (144, 201, 120)
 
-    def draw_bg():
-        screen.fill(BG)
-
     class Soldier(pygame.sprite.Sprite):
         def __init__(self, char_type, x, y, scale, speed):
             pygame.sprite.Sprite.__init__(self)
@@ -600,14 +597,10 @@ def twodshoot():
 
     run = True
     while run:
-
         clock.tick(FPS)
-
-        draw_bg()
-
+        screen.fill(BG)
         player.draw()
         player2.draw()
-
         player.move(moving_left, moving_right)
 
         for event in pygame.event.get():
