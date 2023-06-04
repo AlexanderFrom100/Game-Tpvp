@@ -606,9 +606,7 @@ def twodshoot():
 
         def draw(self):
             screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
-
-
-
+            
     player = Soldier('1x4', 200, 200, 3, 5)
     player2 = Soldier('1x4r', 400, 200, 3, 5)
 
