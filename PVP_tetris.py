@@ -569,7 +569,6 @@ def twodshoot():
             self.image = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.rect = self.image.get_rect()
             self.rect.center = (x, y)
-            self.update_time = pygame.time.get_ticks()
 
 
         def move(self, moving_left, moving_right):
