@@ -546,6 +546,7 @@ def twodshoot():
     SCREEN_HEIGHT = 750
     clock = pygame.time.Clock()
     FPS = 60
+    GRAVITY = 0.75
     moving_left = False
     moving_right = False
     BG = (144, 201, 120)
@@ -556,19 +557,34 @@ def twodshoot():
     class Soldier(pygame.sprite.Sprite):
         def __init__(self, char_type, x, y, scale, speed):
             pygame.sprite.Sprite.__init__(self)
+            self.alive = True
             self.char_type = char_type
             self.speed = speed
             self.direction = 1
             self.flip = False
+            self.vel_y = 0
+            self.in_air = True
+            self.jump = False
             img = pygame.image.load(f'{self.char_type}.png')
             self.image = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.rect = self.image.get_rect()
             self.rect.center = (x, y)
+            self.update_time = pygame.time.get_ticks()
 
 
         def move(self, moving_left, moving_right):
             dx = 0
             dy = 0
+            
+            if self.jump == True and self.in_air == False:
+                self.vel_y = -11
+                self.jump = False
+                self.in_air = True
+
+            self.vel_y += GRAVITY
+            if self.vel_y > 10:
+                self.vel_y
+            dy += self.vel_y
 
             if moving_left:
                 dx = -self.speed
@@ -578,6 +594,11 @@ def twodshoot():
                 dx = self.speed
                 self.flip = False
                 self.direction = 1
+                
+            if self.rect.bottom + dy > 300:
+                dy = 300 - self.rect.bottom
+                self.in_air = False
+
 
 
             self.rect.x += dx
@@ -596,9 +617,21 @@ def twodshoot():
     while run:
         clock.tick(FPS)
         screen.fill(BG)
+        pygame.draw.line(screen, (255,0,0), (0, 300), (SCREEN_WIDTH, 300))
         player.draw()
         player2.draw()
         player.move(moving_left, moving_right)
+        
+        if player.alive:
+            run = True
+        else:
+            run = False
+            break
+        if player2.alive:
+            run = True
+        else:
+            run = False
+            break
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -608,6 +641,8 @@ def twodshoot():
                     moving_left = True
                 if event.key == pygame.K_d:
                     moving_right = True
+                if event.key == pygame.K_w:
+                    player.jump = True
                 if event.key == pygame.K_ESCAPE:
                     run = False
 
