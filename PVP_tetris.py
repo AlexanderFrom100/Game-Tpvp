@@ -544,17 +544,14 @@ def shop(dollars):
 def twodshoot():
     SCREEN_WIDTH = 1200
     SCREEN_HEIGHT = 750
-
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption('Shooter')
-
     clock = pygame.time.Clock()
     FPS = 60
-    
     moving_left = False
     moving_right = False
-
     BG = (144, 201, 120)
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption('2dShooter')
 
     class Soldier(pygame.sprite.Sprite):
         def __init__(self, char_type, x, y, scale, speed):
