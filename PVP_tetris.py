@@ -542,8 +542,8 @@ def shop(dollars):
         pygame.display.update()
 
 def twodshoot():
-    SCREEN_WIDTH = 1000
-    SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
+    SCREEN_WIDTH = 1200
+    SCREEN_HEIGHT = 750
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('Shooter')
