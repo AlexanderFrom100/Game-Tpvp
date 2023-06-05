@@ -577,8 +577,6 @@ def twodshoot():
             self.image = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.rect = self.image.get_rect()
             self.rect.center = (x, y)
-            if self.health <= 0:
-                self.alive = False 
 
 
         def move(self, moving_left, moving_right):
@@ -672,6 +670,10 @@ def twodshoot():
         bullet_group.draw(screen)
         if player.shoot_cooldown > 0:
                 player.shoot_cooldown -= 1
+        if player.health <= 0:
+            player.alive = False 
+        if player2.health <= 0:
+            player2.alive = False 
         
         if player2.alive:
             run = True
