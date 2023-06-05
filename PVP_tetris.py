@@ -705,6 +705,14 @@ def twodshoot():
                     player.jump = True
                 if event.key == pygame.K_f:
                     shoot = True
+                if event.key == pygame.K_LEFT:
+                    moving_left = True
+                if event.key == pygame.K_RIGHT:
+                    moving_right = True
+                if event.key == pygame.K_UP:
+                    player2.jump = True
+                if event.key == pygame.K_0:
+                    shoot = True
                 if event.key == pygame.K_ESCAPE:
                     run = False
 
@@ -714,6 +722,12 @@ def twodshoot():
                 if event.key == pygame.K_d:
                     moving_right = False
                 if event.key == pygame.K_f:
+                        shoot = False
+                if event.key == pygame.K_LEFT:
+                    moving_left = False
+                if event.key == pygame.K_RIGHT:
+                    moving_right = False
+                if event.key == pygame.K_0:
                         shoot = False
 
         pygame.display.update()
