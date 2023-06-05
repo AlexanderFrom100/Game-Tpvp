@@ -584,6 +584,11 @@ def twodshoot():
                 self.vel_y = -11
                 self.jump = False
                 self.in_air = True
+                
+            if self.rect.x < 2:
+                moving_left = False
+            if self.rect.x > SCREEN_WIDTH-self.image.get_width()-2:
+                moving_right = False
 
             if moving_left:
                 dx = -self.speed
@@ -635,9 +640,9 @@ def twodshoot():
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    moving_left = True
+                        moving_left = True
                 if event.key == pygame.K_d:
-                    moving_right = True
+                        moving_right = True
                 if event.key == pygame.K_w:
                     player.jump = True
                 if event.key == pygame.K_ESCAPE:
