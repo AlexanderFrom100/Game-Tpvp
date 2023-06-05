@@ -550,16 +550,24 @@ def twodshoot():
     moving_left = False
     moving_right = False
     BG = (144, 201, 120)
+    shoot = False
+    
+    bullet_img = pygame.image.load('bullet.png')
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('2dShooter')
 
     class Soldier(pygame.sprite.Sprite):
-        def __init__(self, char_type, x, y, scale, speed):
+        def __init__(self, char_type, x, y, scale, speed, ammo):
             pygame.sprite.Sprite.__init__(self)
             self.alive = True
             self.char_type = char_type
             self.speed = speed
+            self.ammo = ammo
+            self.start_ammo = ammo
+            self.shoot_cooldown = 0
+            self.health = 100
+            self.max_health = self.health
             self.direction = 1
             self.flip = False
             self.vel_y = 0
@@ -569,6 +577,8 @@ def twodshoot():
             self.image = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.rect = self.image.get_rect()
             self.rect.center = (x, y)
+            if self.health <= 0:
+                self.alive = False 
 
 
         def move(self, moving_left, moving_right):
@@ -607,13 +617,48 @@ def twodshoot():
 
             self.rect.x += dx
             self.rect.y += dy
+            
+        def shoot(self):
+            if self.shoot_cooldown == 0 and self.ammo > 0:
+                self.shoot_cooldown = 20
+                bullet = Bullet(self.rect.centerx + (0.6 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
+                bullet_group.add(bullet)
+                self.ammo -= 1
 
 
         def draw(self):
             screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
             
-    player = Soldier('1x4', 200, 200, 3, 5)
-    player2 = Soldier('1x4r', 400, 200, 3, 5)
+    class Bullet(pygame.sprite.Sprite):
+        def __init__(self, x, y, direction):
+            pygame.sprite.Sprite.__init__(self)
+            self.speed = 10
+            self.image = bullet_img
+            self.rect = self.image.get_rect()
+            self.rect.center = (x, y)
+            self.direction = direction
+
+        def update(self):
+            self.rect.x += (self.direction * self.speed)
+            if self.rect.right < 0 or self.rect.left > SCREEN_WIDTH:
+                self.kill()
+
+            if pygame.sprite.spritecollide(player, bullet_group, False):
+                if player.alive:
+                    player.health -= 10
+                    self.kill()
+            if pygame.sprite.spritecollide(player2, bullet_group, False):
+                if player2.alive:
+                    player2.health -= 10
+                    print(player2.health)
+                    self.kill()
+
+
+    bullet_group = pygame.sprite.Group()
+
+            
+    player = Soldier('1x4', 200, 200, 3, 5, 20)
+    player2 = Soldier('1x4r', 400, 200, 3, 5, 20)
 
     run = True
     while run:
@@ -623,6 +668,15 @@ def twodshoot():
         player.draw()
         player2.draw()
         player.move(moving_left, moving_right)
+        bullet_group.update()
+        bullet_group.draw(screen)
+        if player.shoot_cooldown > 0:
+                player.shoot_cooldown -= 1
+        
+        if player2.alive:
+            run = True
+        else:
+            run = False
         
         if player.alive:
             run = True
@@ -634,17 +688,21 @@ def twodshoot():
         else:
             run = False
             break
+        if shoot:
+            player.shoot()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                        moving_left = True
+                    moving_left = True
                 if event.key == pygame.K_d:
-                        moving_right = True
+                    moving_right = True
                 if event.key == pygame.K_w:
                     player.jump = True
+                if event.key == pygame.K_f:
+                    shoot = True
                 if event.key == pygame.K_ESCAPE:
                     run = False
 
@@ -653,6 +711,8 @@ def twodshoot():
                     moving_left = False
                 if event.key == pygame.K_d:
                     moving_right = False
+                if event.key == pygame.K_f:
+                        shoot = False
 
         pygame.display.update()
     return
