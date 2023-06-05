@@ -549,8 +549,11 @@ def twodshoot():
     GRAVITY = 0.75
     moving_left = False
     moving_right = False
+    moving_left2 = False
+    moving_right2 = False
     BG = (144, 201, 120)
     shoot = False
+    shoot2 = False
     
     bullet_img = pygame.image.load('bullet.png')
 
@@ -666,19 +669,17 @@ def twodshoot():
         player.draw()
         player2.draw()
         player.move(moving_left, moving_right)
+        player2.move(moving_left2, moving_right2)
         bullet_group.update()
         bullet_group.draw(screen)
         if player.shoot_cooldown > 0:
                 player.shoot_cooldown -= 1
+        if player2.shoot_cooldown > 0:
+                player2.shoot_cooldown -= 1
         if player.health <= 0:
             player.alive = False 
         if player2.health <= 0:
             player2.alive = False 
-        
-        if player2.alive:
-            run = True
-        else:
-            run = False
         
         if player.alive:
             run = True
@@ -692,6 +693,8 @@ def twodshoot():
             break
         if shoot:
             player.shoot()
+        if shoot2:
+            player2.shoot()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -706,13 +709,13 @@ def twodshoot():
                 if event.key == pygame.K_f:
                     shoot = True
                 if event.key == pygame.K_LEFT:
-                    moving_left = True
+                    moving_left2 = True
                 if event.key == pygame.K_RIGHT:
-                    moving_right = True
+                    moving_right2 = True
                 if event.key == pygame.K_UP:
                     player2.jump = True
-                if event.key == pygame.K_0:
-                    shoot = True
+                if event.key == pygame.K_RCTRL:
+                    shoot2 = True
                 if event.key == pygame.K_ESCAPE:
                     run = False
 
@@ -722,13 +725,13 @@ def twodshoot():
                 if event.key == pygame.K_d:
                     moving_right = False
                 if event.key == pygame.K_f:
-                        shoot = False
+                    shoot = False
                 if event.key == pygame.K_LEFT:
-                    moving_left = False
+                    moving_left2 = False
                 if event.key == pygame.K_RIGHT:
-                    moving_right = False
-                if event.key == pygame.K_0:
-                        shoot = False
+                    moving_right2 = False
+                if event.key == pygame.K_RCTRL:
+                    shoot2 = False
 
         pygame.display.update()
     return
