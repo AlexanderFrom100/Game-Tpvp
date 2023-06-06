@@ -617,10 +617,10 @@ def twodshoot():
             if self.rect.bottom + dy > barriar.top and self.rect.left <= barriar.right and self.rect.right >= barriar.left:
                 dy = barriar.top - self.rect.bottom
                 self.in_air = False
-            if self.rect.bottom + dy < barriar.top and self.rect.left + dx > barriar.right:
-                dx = barriar.left - self.rect.right
-            if self.rect.bottom + dy < barriar.top and self.rect.right + dx > barriar.left:
-                dx = barriar.right - self.rect.left
+            if self.rect.bottom < barriar.top and self.rect.left <= barriar.right:
+                moving_left = False
+            if self.rect.bottom < barriar.top and self.rect.right >= barriar.left:
+                moving_right = False
             
             
 
