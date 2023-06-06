@@ -592,7 +592,7 @@ def twodshoot():
             dy += self.vel_y
 
             if self.jump == True and self.in_air == False:
-                self.vel_y = -11
+                self.vel_y = -20
                 self.jump = False
                 self.in_air = True
                 
@@ -610,11 +610,19 @@ def twodshoot():
                 self.flip = False
                 self.direction = 1
                 
-            if self.rect.bottom + dy > 300:
-                dy = 300 - self.rect.bottom
+            if self.rect.bottom + dy > ground.top:
+                dy = ground.top - self.rect.bottom
                 self.in_air = False
-
-
+                
+            if self.rect.bottom + dy > barriar.top and self.rect.left <= barriar.right and self.rect.right >= barriar.left:
+                dy = barriar.top - self.rect.bottom
+                self.in_air = False
+            if self.rect.bottom + dy < barriar.top and self.rect.left + dx > barriar.right:
+                dx = barriar.left - self.rect.right
+            if self.rect.bottom + dy < barriar.top and self.rect.right + dx > barriar.left:
+                dx = barriar.right - self.rect.left
+            
+            
 
             self.rect.x += dx
             self.rect.y += dy
@@ -658,14 +666,26 @@ def twodshoot():
     bullet_group = pygame.sprite.Group()
 
             
-    player = Soldier('1x4', 200, 200, 3, 5, 20)
-    player2 = Soldier('1x4r', 400, 200, 3, 5, 20)
+    player = Soldier('1x4', 50, 500, 3, 5, 20)
+    player2 = Soldier('1x4r', SCREEN_WIDTH-50, 500, 3, 5, 20)
+    
+    ground = pygame.Rect(0,600,SCREEN_WIDTH,SCREEN_HEIGHT-600)
+    barriar = pygame.Rect(SCREEN_WIDTH/2-50,SCREEN_HEIGHT/3,100,SCREEN_HEIGHT-SCREEN_HEIGHT/3)
+    platform = pygame.Rect(SCREEN_WIDTH/3-50,SCREEN_HEIGHT/2,100,50)
+    platform2 = pygame.Rect(SCREEN_WIDTH/3+SCREEN_WIDTH/3-50,SCREEN_HEIGHT/2,100,50)
+    platform3 = pygame.Rect(SCREEN_WIDTH/6-50,SCREEN_HEIGHT/1.6,100,50)
+    platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
 
     run = True
     while run:
         clock.tick(FPS)
         screen.fill(BG)
-        pygame.draw.line(screen, (255,0,0), (0, 300), (SCREEN_WIDTH, 300))
+        pygame.draw.rect(screen, (255,255,255), ground, SCREEN_WIDTH)
+        pygame.draw.rect(screen, (255,255,255), barriar, 100)
+        pygame.draw.rect(screen, (255,255,255), platform, 100)
+        pygame.draw.rect(screen, (255,255,255), platform2, 100)
+        pygame.draw.rect(screen, (255,255,255), platform3, 100)
+        pygame.draw.rect(screen, (255,255,255), platform4, 100)
         player.draw()
         player2.draw()
         player.move(moving_left, moving_right)
