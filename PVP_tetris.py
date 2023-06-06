@@ -600,11 +600,6 @@ def twodshoot():
                 moving_left = False
             if self.rect.x > SCREEN_WIDTH-self.image.get_width()-2:
                 moving_right = False
-                
-            if self.rect.left <= barriar.right and self.rect.bottom > barriar.top:
-                moving_left  = False
-            if self.rect.right >= barriar.left and self.rect.bottom > barriar.top:
-                moving_right = False
 
             if moving_left:
                 dx = -self.speed
@@ -676,6 +671,8 @@ def twodshoot():
     platform2 = pygame.Rect(SCREEN_WIDTH/3+SCREEN_WIDTH/3-50,SCREEN_HEIGHT/2,100,50)
     platform3 = pygame.Rect(SCREEN_WIDTH/6-50,SCREEN_HEIGHT/1.6,100,50)
     platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
+    
+    collide = pygame.Rect.colliderect(player, barriar)
 
     run = True
     while run:
