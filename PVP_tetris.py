@@ -600,6 +600,11 @@ def twodshoot():
                 moving_left = False
             if self.rect.x > SCREEN_WIDTH-self.image.get_width()-2:
                 moving_right = False
+                
+            if self.rect.left <= barriar.right and self.rect.bottom > barriar.top:
+                moving_left  = False
+            if self.rect.right >= barriar.left and self.rect.bottom > barriar.top:
+                moving_right = False
 
             if moving_left:
                 dx = -self.speed
@@ -617,10 +622,6 @@ def twodshoot():
             if self.rect.bottom + dy > barriar.top and self.rect.left <= barriar.right and self.rect.right >= barriar.left:
                 dy = barriar.top - self.rect.bottom
                 self.in_air = False
-            if self.rect.bottom < barriar.top and self.rect.left <= barriar.right:
-                moving_left = False
-            if self.rect.bottom < barriar.top and self.rect.right >= barriar.left:
-                moving_right = False
             
             
 
