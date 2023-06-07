@@ -634,7 +634,7 @@ def twodshoot():
         def shoot(self):
             if self.shoot_cooldown == 0 and self.ammo > 0:
                 self.shoot_cooldown = 20
-                bullet = Bullet(self.rect.centerx + (0.75 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
+                bullet = Bullet(self.rect.centerx + (0.8 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
                 bullet_group.add(bullet)
                 self.ammo -= 1
 
@@ -743,6 +743,8 @@ def twodshoot():
     platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
     gameover = False
     run = True
+    main_font = pygame.font.Font('font.ttf', 100)
+    title = main_font.render('ROUND OVER', True, pygame.Color('cyan'))
     while run:
         gameover = False
         clock.tick(FPS)
@@ -830,9 +832,9 @@ def twodshoot():
                 if event.key == pygame.K_RCTRL:
                     shoot2 = False
         if gameover == True:
-            main_font = pygame.font.Font('font.ttf', 100)
-            title = main_font.render('ROUND OVER', True, pygame.Color('cyan'))
-            screen.blit(title, (SCREEN_WIDTH/2-50, SCREEN_HEIGHT/2))
+            #main_font = pygame.font.Font('font.ttf', 100)
+            #title = main_font.render('ROUND OVER', True, pygame.Color('cyan'))
+            screen.blit(title, (SCREEN_WIDTH/3-150, SCREEN_HEIGHT/2-50))
             pygame.time.wait(3000)
             play_tet(dollars)
 
