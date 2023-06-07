@@ -656,6 +656,7 @@ def twodshoot():
                         player.health = player.max_health
                 elif self.item_type == 'Ammo':
                     player.ammo += 15
+                self.kill()
             if pygame.sprite.collide_rect(self, player2):
                 if self.item_type == 'Health':
                     player2.health += 25
