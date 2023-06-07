@@ -695,9 +695,6 @@ def twodshoot():
             self.rect.x += (self.direction * self.speed)
             if self.rect.right < 0 or self.rect.left > SCREEN_WIDTH:
                 self.kill()
-                
-            if pygame.sprite.spritecollide(bullet_group[0], bullet_group[1], False):
-                self.kill()
 
             if pygame.sprite.spritecollide(player, bullet_group, False):
                 if player.alive:
@@ -712,8 +709,6 @@ def twodshoot():
 
 
     bullet_group = pygame.sprite.Group()
-    grenade_group = pygame.sprite.Group()
-    explosion_group = pygame.sprite.Group()
     item_box_group = pygame.sprite.Group()
     item_box = ItemBox('Health', 345, 550)
     item_box2 = ItemBox('Health', 932, 550)
@@ -773,12 +768,8 @@ def twodshoot():
             player2.alive = False 
             
         bullet_group.update()
-        grenade_group.update()
-        explosion_group.update()
         item_box_group.update()
         bullet_group.draw(screen)
-        grenade_group.draw(screen)
-        explosion_group.draw(screen)
         item_box_group.draw(screen)
         
         if player.alive:
