@@ -741,10 +741,10 @@ def twodshoot():
     platform2 = pygame.Rect(SCREEN_WIDTH/3+SCREEN_WIDTH/3-50,SCREEN_HEIGHT/2,100,50)
     platform3 = pygame.Rect(SCREEN_WIDTH/6-50,SCREEN_HEIGHT/1.6,100,50)
     platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
-    
-
+    gameover = False
     run = True
     while run:
+        gameover = False
         clock.tick(FPS)
         screen.fill(BG)
         health_bar.draw(player.health)
@@ -785,13 +785,11 @@ def twodshoot():
         if player.alive:
             run = True
         else:
-            run = False
-            break
+            gameover = True
         if player2.alive:
             run = True
         else:
-            run = False
-            break
+            gameover = True
         if shoot:
             player.shoot()
         if shoot2:
@@ -799,7 +797,7 @@ def twodshoot():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                gameover = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     moving_left = True
@@ -817,8 +815,6 @@ def twodshoot():
                     player2.jump = True
                 if event.key == pygame.K_RCTRL:
                     shoot2 = True
-                if event.key == pygame.K_ESCAPE:
-                    run = False
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
@@ -833,6 +829,12 @@ def twodshoot():
                     moving_right2 = False
                 if event.key == pygame.K_RCTRL:
                     shoot2 = False
+        if gameover == True:
+            main_font = pygame.font.Font('font.ttf', 100)
+            title = main_font.render('ROUND OVER', True, pygame.Color('cyan'))
+            screen.blit(title, (SCREEN_WIDTH/2-50, SCREEN_HEIGHT/2))
+            pygame.time.wait(3000)
+            play_tet(dollars)
 
         pygame.display.update()
     return
