@@ -716,7 +716,7 @@ def twodshoot():
     player = Soldier('1x4', 50, 500, 3, 5, 20)
     health_bar = HealthBar(10, 10, player.health, player.health)
     player2 = Soldier('1x4r', SCREEN_WIDTH-50, 500, 3, 5, 20)
-    health_bar2 = HealthBar(1100, 10, player2.health, player2.health)
+    health_bar2 = HealthBar(1030, 10, player2.health, player2.health)
     
     ground = pygame.Rect(0,600,SCREEN_WIDTH,SCREEN_HEIGHT-600)
     barriar = pygame.Rect(SCREEN_WIDTH/2-50,SCREEN_HEIGHT/3,100,SCREEN_HEIGHT-SCREEN_HEIGHT/3)
@@ -731,6 +731,7 @@ def twodshoot():
         clock.tick(FPS)
         screen.fill(BG)
         health_bar.draw(player.health)
+        health_bar2.draw(player2.health)
         draw_text('AMMO: ', font, (255,255,255), 10, 35)
         for x in range(player.ammo):
             screen.blit(bullet_img, (90 + (x * 10), 40))
