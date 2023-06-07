@@ -567,6 +567,9 @@ def twodshoot():
         'Health'	: health_box_img,
         'Ammo'		: ammo_box_img,
     }
+    rand_x = lambda : (randrange(150,SCREEN_WIDTH/2-150))
+    rand_x2 = lambda : (randrange(SCREEN_WIDTH/2+150,SCREEN_WIDTH-150))
+    rand_y = lambda : ((randrange(100,550)))
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('2dShooter')
@@ -707,15 +710,22 @@ def twodshoot():
                     print(player2.health)
                     self.kill()
 
-
+    random_x = rand_x()
+    random_y = rand_y()
     bullet_group = pygame.sprite.Group()
     item_box_group = pygame.sprite.Group()
-    item_box = ItemBox('Health', 345, 550)
-    item_box2 = ItemBox('Health', 932, 550)
+    item_box = ItemBox('Health', random_x, random_y)
+    random_x = rand_x2()
+    random_y = rand_y()
+    item_box2 = ItemBox('Health', random_x, random_y)
     item_box_group.add(item_box)
     item_box_group.add(item_box2)
-    item_box = ItemBox('Ammo', 723, 550)
-    item_box2 = ItemBox('Ammo', 254, 550)
+    random_x = rand_x()
+    random_y = rand_y()
+    item_box = ItemBox('Ammo', random_x, random_y)
+    random_x = rand_x2()
+    random_y = rand_y()
+    item_box2 = ItemBox('Ammo', random_x, random_y)
     item_box_group.add(item_box)
     item_box_group.add(item_box2)
 
