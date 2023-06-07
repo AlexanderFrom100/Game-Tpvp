@@ -631,7 +631,7 @@ def twodshoot():
         def shoot(self):
             if self.shoot_cooldown == 0 and self.ammo > 0:
                 self.shoot_cooldown = 20
-                bullet = Bullet(self.rect.centerx + (0.6 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
+                bullet = Bullet(self.rect.centerx + (0.75 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
                 bullet_group.add(bullet)
                 self.ammo -= 1
 
@@ -695,11 +695,15 @@ def twodshoot():
             self.rect.x += (self.direction * self.speed)
             if self.rect.right < 0 or self.rect.left > SCREEN_WIDTH:
                 self.kill()
+                
+            if pygame.sprite.spritecollide(bullet_group[0], bullet_group[1], False):
+                self.kill()
 
             if pygame.sprite.spritecollide(player, bullet_group, False):
                 if player.alive:
                     player.health -= 10
                     self.kill()
+                
             if pygame.sprite.spritecollide(player2, bullet_group, False):
                 if player2.alive:
                     player2.health -= 10
