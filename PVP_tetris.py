@@ -703,12 +703,14 @@ def twodshoot():
     grenade_group = pygame.sprite.Group()
     explosion_group = pygame.sprite.Group()
     item_box_group = pygame.sprite.Group()
-    item_box = ItemBox('Health', 100, 260)
-    item_box = ItemBox('Health', 1100, 260)
+    item_box = ItemBox('Health', 345, 550)
+    item_box2 = ItemBox('Health', 932, 550)
     item_box_group.add(item_box)
-    item_box = ItemBox('Ammo', 400, 260)
-    item_box = ItemBox('Ammo', 800, 260)
+    item_box_group.add(item_box2)
+    item_box = ItemBox('Ammo', 723, 550)
+    item_box2 = ItemBox('Ammo', 254, 550)
     item_box_group.add(item_box)
+    item_box_group.add(item_box2)
 
             
     player = Soldier('1x4', 50, 500, 3, 5, 20)
