@@ -543,7 +543,7 @@ def shop(dollars):
 
 def twodshoot():
     SCREEN_WIDTH = 1200
-    SCREEN_HEIGHT = 750
+    SCREEN_HEIGHT = SCREEN_WIDTH*0.625
     clock = pygame.time.Clock()
     FPS = 60
     GRAVITY = 0.75
@@ -555,7 +555,18 @@ def twodshoot():
     shoot = False
     shoot2 = False
     
+    font = pygame.font.SysFont('Futura', 30)
+    def draw_text(text, font, text_col, x, y):
+        img = font.render(text, True, text_col)
+        screen.blit(img, (x, y))
+    
     bullet_img = pygame.image.load('bullet.png')
+    health_box_img = pygame.image.load('health_box.png')
+    ammo_box_img = pygame.image.load('ammo_box.png')
+    item_boxes = {
+        'Health'	: health_box_img,
+        'Ammo'		: ammo_box_img,
+    }
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('2dShooter')
@@ -614,12 +625,6 @@ def twodshoot():
                 dy = ground.top - self.rect.bottom
                 self.in_air = False
                 
-            if self.rect.bottom + dy > barriar.top and self.rect.left <= barriar.right and self.rect.right >= barriar.left:
-                dy = barriar.top - self.rect.bottom
-                self.in_air = False
-            
-            
-
             self.rect.x += dx
             self.rect.y += dy
             
@@ -633,6 +638,41 @@ def twodshoot():
 
         def draw(self):
             screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
+            
+    class ItemBox(pygame.sprite.Sprite):
+        def __init__(self, item_type, x, y):
+            pygame.sprite.Sprite.__init__(self)
+            self.item_type = item_type
+            self.image = item_boxes[self.item_type]
+            self.rect = self.image.get_rect()
+            self.rect.midtop = (x + 50 // 2, y + (50 - self.image.get_height()))
+
+
+        def update(self):
+            if pygame.sprite.collide_rect(self, player):
+                if self.item_type == 'Health':
+                    player.health += 25
+                    if player.health > player.max_health:
+                        player.health = player.max_health
+                elif self.item_type == 'Ammo':
+                    player.ammo += 15
+                self.kill()
+
+
+    class HealthBar():
+        def __init__(self, x, y, health, max_health):
+            self.x = x
+            self.y = y
+            self.health = health
+            self.max_health = max_health
+
+        def draw(self, health):
+            self.health = health
+            ratio = self.health / self.max_health
+            pygame.draw.rect(screen, (0,0,0), (self.x - 2, self.y - 2, 154, 24))
+            pygame.draw.rect(screen, (255,0,0), (self.x, self.y, 150, 20))
+            pygame.draw.rect(screen, (0,255,0), (self.x, self.y, 150 * ratio, 20))
+
             
     class Bullet(pygame.sprite.Sprite):
         def __init__(self, x, y, direction):
@@ -660,10 +700,21 @@ def twodshoot():
 
 
     bullet_group = pygame.sprite.Group()
+    grenade_group = pygame.sprite.Group()
+    explosion_group = pygame.sprite.Group()
+    item_box_group = pygame.sprite.Group()
+    item_box = ItemBox('Health', 100, 260)
+    item_box = ItemBox('Health', 1100, 260)
+    item_box_group.add(item_box)
+    item_box = ItemBox('Ammo', 400, 260)
+    item_box = ItemBox('Ammo', 800, 260)
+    item_box_group.add(item_box)
 
             
     player = Soldier('1x4', 50, 500, 3, 5, 20)
+    health_bar = HealthBar(10, 10, player.health, player.health)
     player2 = Soldier('1x4r', SCREEN_WIDTH-50, 500, 3, 5, 20)
+    health_bar2 = HealthBar(1100, 10, player2.health, player2.health)
     
     ground = pygame.Rect(0,600,SCREEN_WIDTH,SCREEN_HEIGHT-600)
     barriar = pygame.Rect(SCREEN_WIDTH/2-50,SCREEN_HEIGHT/3,100,SCREEN_HEIGHT-SCREEN_HEIGHT/3)
@@ -677,12 +728,16 @@ def twodshoot():
     while run:
         clock.tick(FPS)
         screen.fill(BG)
-        pygame.draw.rect(screen, (255,255,255), ground, SCREEN_WIDTH)
-        pygame.draw.rect(screen, (255,255,255), barriar, 100)
-        pygame.draw.rect(screen, (255,255,255), platform, 100)
-        pygame.draw.rect(screen, (255,255,255), platform2, 100)
-        pygame.draw.rect(screen, (255,255,255), platform3, 100)
-        pygame.draw.rect(screen, (255,255,255), platform4, 100)
+        health_bar.draw(player.health)
+        draw_text('AMMO: ', font, (255,255,255), 10, 35)
+        for x in range(player.ammo):
+            screen.blit(bullet_img, (90 + (x * 10), 40))
+            pygame.draw.rect(screen, (255,255,255), ground, SCREEN_WIDTH)
+        #pygame.draw.rect(screen, (255,255,255), barriar, 100)
+        #pygame.draw.rect(screen, (255,255,255), platform, 100)
+        #pygame.draw.rect(screen, (255,255,255), platform2, 100)
+        #pygame.draw.rect(screen, (255,255,255), platform3, 100)
+        #pygame.draw.rect(screen, (255,255,255), platform4, 100)
         player.draw()
         player2.draw()
         player.move(moving_left, moving_right)
@@ -697,6 +752,15 @@ def twodshoot():
             player.alive = False 
         if player2.health <= 0:
             player2.alive = False 
+            
+        bullet_group.update()
+        grenade_group.update()
+        explosion_group.update()
+        item_box_group.update()
+        bullet_group.draw(screen)
+        grenade_group.draw(screen)
+        explosion_group.draw(screen)
+        item_box_group.draw(screen)
         
         if player.alive:
             run = True
