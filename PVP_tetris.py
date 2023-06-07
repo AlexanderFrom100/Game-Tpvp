@@ -479,7 +479,7 @@ def shop(dollars):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if player_c > 0:
                     if button_n.collidepoint(event.pos):
-                        play_tet(dollars)
+                        twodshoot()
                 else:
                     if button_n.collidepoint(event.pos):
                         player_c += 1
@@ -551,7 +551,7 @@ def twodshoot():
     moving_right = False
     moving_left2 = False
     moving_right2 = False
-    BG = (144, 201, 120)
+    BG = (104, 161, 80)
     shoot = False
     shoot2 = False
     
@@ -656,6 +656,13 @@ def twodshoot():
                         player.health = player.max_health
                 elif self.item_type == 'Ammo':
                     player.ammo += 15
+            if pygame.sprite.collide_rect(self, player2):
+                if self.item_type == 'Health':
+                    player2.health += 25
+                    if player2.health > player2.max_health:
+                        player2.health = player2.max_health
+                elif self.item_type == 'Ammo':
+                    player2.ammo += 15
                 self.kill()
 
 
@@ -733,8 +740,12 @@ def twodshoot():
         health_bar.draw(player.health)
         health_bar2.draw(player2.health)
         draw_text('AMMO: ', font, (255,255,255), 10, 35)
+        draw_text('AMMO: ', font, (255,255,255), 750, 35)
         for x in range(player.ammo):
             screen.blit(bullet_img, (90 + (x * 10), 40))
+            pygame.draw.rect(screen, (255,255,255), ground, SCREEN_WIDTH)
+        for x in range(player2.ammo):
+            screen.blit(bullet_img, (830 + (x * 10), 40))
             pygame.draw.rect(screen, (255,255,255), ground, SCREEN_WIDTH)
         #pygame.draw.rect(screen, (255,255,255), barriar, 100)
         #pygame.draw.rect(screen, (255,255,255), platform, 100)
