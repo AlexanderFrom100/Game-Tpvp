@@ -672,7 +672,6 @@ def twodshoot():
     platform3 = pygame.Rect(SCREEN_WIDTH/6-50,SCREEN_HEIGHT/1.6,100,50)
     platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
     
-    collide = pygame.Rect.colliderect(player, barriar)
 
     run = True
     while run:
