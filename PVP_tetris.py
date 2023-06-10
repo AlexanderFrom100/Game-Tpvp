@@ -555,6 +555,9 @@ def twodshoot():
     shoot = False
     shoot2 = False
     
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption('2dShooter')
+    
     font = pygame.font.SysFont('Futura', 30)
     def draw_text(text, font, text_col, x, y):
         img = font.render(text, True, text_col)
@@ -571,8 +574,6 @@ def twodshoot():
     rand_x2 = lambda : (randrange(SCREEN_WIDTH/2+150,SCREEN_WIDTH-150))
     rand_y = lambda : ((randrange(100,550)))
 
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption('2dShooter')
 
     class Soldier(pygame.sprite.Sprite):
         def __init__(self, char_type, x, y, scale, speed, ammo):
@@ -744,7 +745,7 @@ def twodshoot():
     gameover = False
     run = True
     main_font = pygame.font.Font('font.ttf', 100)
-    title = main_font.render('ROUND OVER', True, pygame.Color('cyan'))
+    title = main_font.render('ROUND OVER', True, pygame.Color('white'))
     while run:
         gameover = False
         clock.tick(FPS)
