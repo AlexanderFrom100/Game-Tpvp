@@ -714,18 +714,18 @@ def twodshoot():
     random_y = rand_y()
     bullet_group = pygame.sprite.Group()
     item_box_group = pygame.sprite.Group()
-    item_box = ItemBox('Health', random_x, random_y)
+    item_box = ItemBox('Health', random_x, 550)
     random_x = rand_x2()
     random_y = rand_y()
-    item_box2 = ItemBox('Health', random_x, random_y)
+    item_box2 = ItemBox('Health', random_x, 550)
     item_box_group.add(item_box)
     item_box_group.add(item_box2)
     random_x = rand_x()
     random_y = rand_y()
-    item_box = ItemBox('Ammo', random_x, random_y)
+    item_box = ItemBox('Ammo', random_x, 550)
     random_x = rand_x2()
     random_y = rand_y()
-    item_box2 = ItemBox('Ammo', random_x, random_y)
+    item_box2 = ItemBox('Ammo', random_x, 550)
     item_box_group.add(item_box)
     item_box_group.add(item_box2)
 
@@ -799,7 +799,7 @@ def twodshoot():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameover = True
+                run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     moving_left = True
@@ -832,10 +832,8 @@ def twodshoot():
                 if event.key == pygame.K_RCTRL:
                     shoot2 = False
         if gameover == True:
-            #main_font = pygame.font.Font('font.ttf', 100)
-            #title = main_font.render('ROUND OVER', True, pygame.Color('cyan'))
             screen.blit(title, (SCREEN_WIDTH/3-150, SCREEN_HEIGHT/2-50))
-            pygame.time.wait(3000)
+            pygame.time.wait(1000)
             play_tet(dollars)
 
         pygame.display.update()
