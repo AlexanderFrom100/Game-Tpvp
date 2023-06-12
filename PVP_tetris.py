@@ -744,8 +744,6 @@ def twodshoot():
     platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
     gameover = False
     run = True
-    main_font = pygame.font.Font('font.ttf', 100)
-    title = main_font.render('ROUND OVER', True, pygame.Color('white'))
     while run:
         gameover = False
         clock.tick(FPS)
@@ -833,11 +831,23 @@ def twodshoot():
                 if event.key == pygame.K_RCTRL:
                     shoot2 = False
         if gameover == True:
-            screen.blit(title, (SCREEN_WIDTH/3-150, SCREEN_HEIGHT/2-50))
             pygame.time.wait(1000)
-            play_tet(dollars)
+            rg_oscr()
 
         pygame.display.update()
+    
+def rg_oscr():
+    screen = pygame.display.set_mode((800, 800))
+    pygame.display.set_caption('game over screen')
+    
+    while True:
+        screen.fill((153, 52, 67))
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+        
+        
     return
         
 twodshoot()
