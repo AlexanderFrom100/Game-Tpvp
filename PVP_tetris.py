@@ -845,8 +845,8 @@ def rg_oscr(dollars, round):
     font = pygame.font.SysFont('cambria', 100)
     m_font = pygame.font.SysFont('cambria', 50)
     rg_o = font.render('ROUND OVER', True, pygame.Color('white'))
-    button_p = pygame.Rect(260, 705,110,60)
-    button_q = pygame.Rect(430, 705,110,60)
+    button_p = pygame.Rect(160, 505,260,60)
+    button_q = pygame.Rect(530, 505,110,60)
     play = m_font.render('PLAY AGAIN', True, pygame.Color('white'))
     quit = m_font.render('QUIT', True, pygame.Color('white'))
     
@@ -854,9 +854,11 @@ def rg_oscr(dollars, round):
         scr.fill((0, 0, 0))
         if round >= 3:
             rg_o = font.render('GAME OVER', True, pygame.Color('white'))
-            scr.blit(play, (260, 705))
-            scr.blit(quit, (430, 705))
-        scr.blit(rg_o, (100, 250))
+            scr.blit(play, (160, 505))
+            scr.blit(quit, (530, 505))
+            scr.blit(rg_o, (150, 250))
+        else:
+            scr.blit(rg_o, (100, 250))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -876,7 +878,7 @@ def rg_oscr(dollars, round):
                         play_tet(dollars, round)
         a,b = pygame.mouse.get_pos()
         if round >= 3:
-            if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
+            if button_p.x <= a <= button_p.x + 260 and button_p.y <= b <= button_p.y +60:
                 play = m_font.render('PLAY AGAIN', True, pygame.Color('cyan'))
             else:
                 play = m_font.render('PLAY AGAIN', True, pygame.Color('white'))
