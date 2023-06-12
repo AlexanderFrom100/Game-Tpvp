@@ -6,6 +6,7 @@ from random import choice, randrange
 pygame.init()
 
 dollars = [3000, 3000]
+round = 3
 
 def play_tet(dollars):
     w = 10
@@ -372,7 +373,7 @@ def play_tet(dollars):
         pygame.display.flip()
         clock.tick(fps)
         
-def menu():
+def menu(dollars, menu):
     font = pygame.font.SysFont('cambria', 50)
     button_p = pygame.Rect(260, 705,110,60)
     button_q = pygame.Rect(430, 705,110,60)
@@ -833,22 +834,62 @@ def twodshoot():
         if gameover == True:
             pygame.time.wait(1000)
             rg_oscr()
-
         pygame.display.update()
+
     
-def rg_oscr():
-    screen = pygame.display.set_mode((800, 800))
-    pygame.display.set_caption('game over screen')
+def rg_oscr(dollars, round):
+    res = 800, 800
+    scr = pygame.display.set_mode(res)
+    pygame.display.set_caption('Welcome to PVP TETRIS')
+    
+    font = pygame.font.SysFont('cambria', 100)
+    m_font = pygame.font.SysFont('cambria', 50)
+    rg_o = font.render('ROUND OVER', True, pygame.Color('white'))
+    button_p = pygame.Rect(260, 705,110,60)
+    button_q = pygame.Rect(430, 705,110,60)
+    play = m_font.render('PLAY AGAIN', True, pygame.Color('white'))
+    quit = m_font.render('QUIT', True, pygame.Color('white'))
     
     while True:
-        screen.fill((153, 52, 67))
-        
+        scr.fill((0, 0, 0))
+        if round >= 3:
+            rg_o = font.render('GAME OVER', True, pygame.Color('white'))
+            scr.blit(play, (260, 705))
+            scr.blit(quit, (430, 705))
+        scr.blit(rg_o, (100, 250))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if round >= 3:
+                    if button_q.collidepoint(event.pos):
+                        pygame.quit()
+                    if button_p.collidepoint(event.pos):
+                        dollars = [0, 0]
+                        round = 1
+                        menu(dollars, round)
+                else:
+                    if button_q.collidepoint(event.pos):
+                        pygame.quit()
+                    if button_p.collidepoint(event.pos):
+                        round += 1
+                        play_tet(dollars, round)
+        a,b = pygame.mouse.get_pos()
+        if round >= 3:
+            if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
+                play = m_font.render('PLAY AGAIN', True, pygame.Color('cyan'))
+            else:
+                play = m_font.render('PLAY AGAIN', True, pygame.Color('white'))
+            if button_q.x <= a <= button_q.x + 110 and button_q.y <= b <= button_q.y +60:
+                quit = m_font.render('QUIT', True, pygame.Color('red'))
+            else:
+                quit = m_font.render('QUIT', True, pygame.Color('white'))
+            scr.blit(quit,(button_q.x, button_q.y))
+            scr.blit(play,(button_p.x, button_p.y))
+        pygame.display.update()
+                
         
         
-    return
         
-twodshoot()
+rg_oscr(dollars, round)
 pygame.quit()
