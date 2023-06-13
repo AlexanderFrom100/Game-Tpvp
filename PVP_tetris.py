@@ -841,11 +841,12 @@ def rg_oscr(dollars, round):
     res = 800, 800
     scr = pygame.display.set_mode(res)
     pygame.display.set_caption('Welcome to PVP TETRIS')
+    bg = pygame.image.load('galaxy.jpg').convert()
     
     font = pygame.font.SysFont('cambria', 100)
     m_font = pygame.font.SysFont('cambria', 50)
     s_font = pygame.font.SysFont('cambria', 30)
-    rg_o = font.render('ROUND OVER', True, pygame.Color('white'))
+    rg_o = font.render('ROUND OVER', True, pygame.Color('orange'))
     button_p = pygame.Rect(160, 505,260,60)
     button_q = pygame.Rect(530, 505,110,60)
     play = m_font.render('PLAY AGAIN', True, pygame.Color('white'))
@@ -857,16 +858,16 @@ def rg_oscr(dollars, round):
     milseconds = 0
     
     while True:
-        scr.fill((0, 0, 0))
+        scr.blit(bg, (0,0))
         if round >= 3:
-            rg_o = font.render('GAME OVER', True, pygame.Color('white'))
+            rg_o = font.render('GAME OVER', True, pygame.Color('orange'))
             scr.blit(play, (160, 505))
             scr.blit(quit, (530, 505))
             scr.blit(rg_o, (150, 250))
         else:
             scr.blit(rg_o, (100, 250))
             
-            scr.blit(s_font.render('Next round will begin in:', True, pygame.Color('white')), (207, 410))
+            scr.blit(s_font.render('Next round will begin in:', True, pygame.Color('green')), (207, 410))
             
             if seconds < 10:
                 scr.blit(m_font.render('0', True, pygame.Color('white')), (527, 400))
