@@ -873,9 +873,9 @@ def rg_oscr(dollars, round, rw, rw2):
             scr.blit(quit, (530, 505))
             scr.blit(rg_o, (150, 250))
             
-            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (340, 510))
-            scr.blit(m_font.render('-', True, pygame.Color('white')), (375, 505))
-            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (400, 510))
+            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (340, 410))
+            scr.blit(m_font.render('-', True, pygame.Color('white')), (375, 405))
+            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (400, 410))
         else:
             
             scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (350, 510))
@@ -932,5 +932,5 @@ def rg_oscr(dollars, round, rw, rw2):
         
         
         
-rg_oscr(dollars, round, rw, rw2)
+menu(dollars, round, rw, rw2)
 pygame.quit()
