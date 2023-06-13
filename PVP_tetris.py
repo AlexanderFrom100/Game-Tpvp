@@ -7,8 +7,10 @@ pygame.init()
 
 dollars = [3000, 3000]
 round = 1
+rw = 0
+rw2 = 0
 
-def play_tet(dollars, round):
+def play_tet(dollars, round, rw, rw2):
     w = 10
     h = 20
     Tile = 35
@@ -368,12 +370,16 @@ def play_tet(dollars, round):
         if game_over:
             pygame.mixer.music.pause()
             dollars = money
-            shop(dollars, round)
+            shop(dollars, round, rw, rw2)
                 
         pygame.display.flip()
         clock.tick(fps)
         
-def menu(dollars, round):
+def menu(dollars, round, rw, rw2):
+    round = 1
+    dollars = [0,0]
+    rw = 0
+    rw2 = 0
     font = pygame.font.SysFont('cambria', 50)
     button_p = pygame.Rect(260, 705,110,60)
     button_q = pygame.Rect(430, 705,110,60)
@@ -394,7 +400,7 @@ def menu(dollars, round):
                 if button_q.collidepoint(event.pos):
                     pygame.quit()
                 if button_p.collidepoint(event.pos):
-                    play_tet(dollars, round)
+                    play_tet(dollars, round, rw, rw2)
         a,b = pygame.mouse.get_pos()
         if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
            play = font.render('PLAY', True, pygame.Color('cyan'))
@@ -408,7 +414,7 @@ def menu(dollars, round):
         scr.blit(play,(button_p.x, button_p.y))
         pygame.display.update()
         
-def shop(dollars, round):
+def shop(dollars, round, rw, rw2):
     clock = pygame.time.Clock()
     res = 800, 800
     scr = pygame.display.set_mode(res)
@@ -480,7 +486,7 @@ def shop(dollars, round):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if player_c > 0:
                     if button_n.collidepoint(event.pos):
-                        twodshoot(dollars, round)
+                        twodshoot(dollars, round, rw, rw2)
                 else:
                     if button_n.collidepoint(event.pos):
                         player_c += 1
@@ -542,7 +548,7 @@ def shop(dollars, round):
         clock.tick()
         pygame.display.update()
 
-def twodshoot(dollars, round):
+def twodshoot(dollars, round, rw, rw2):
     SCREEN_WIDTH = 1200
     SCREEN_HEIGHT = SCREEN_WIDTH*0.625
     clock = pygame.time.Clock()
@@ -833,11 +839,11 @@ def twodshoot(dollars, round):
                     shoot2 = False
         if gameover == True:
             pygame.time.wait(1000)
-            rg_oscr(dollars, round)
+            rg_oscr(dollars, round, rw, rw2)
         pygame.display.update()
 
     
-def rg_oscr(dollars, round):
+def rg_oscr(dollars, round, rw, rw2):
     res = 800, 800
     scr = pygame.display.set_mode(res)
     pygame.display.set_caption('Welcome to PVP TETRIS')
@@ -892,9 +898,7 @@ def rg_oscr(dollars, round):
                     if button_q.collidepoint(event.pos):
                         pygame.quit()
                     if button_p.collidepoint(event.pos):
-                        dollars = [0, 0]
-                        round = 1
-                        menu(dollars, round)
+                        menu(dollars, round, rw, rw2)
         a,b = pygame.mouse.get_pos()
         if round >= 3:
             if button_p.x <= a <= button_p.x + 260 and button_p.y <= b <= button_p.y +60:
@@ -910,12 +914,12 @@ def rg_oscr(dollars, round):
             
         if over:
             round += 1
-            play_tet(dollars, round)
+            play_tet(dollars, round, rw, rw2)
         
         pygame.display.update()
                 
         
         
         
-rg_oscr(dollars, round)
+rg_oscr(dollars, round, rw, rw2)
 pygame.quit()
