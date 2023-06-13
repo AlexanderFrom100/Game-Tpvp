@@ -999,7 +999,7 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
                     if button_q.collidepoint(event.pos):
                         pygame.quit()
                     if button_p.collidepoint(event.pos):
-                        menu(dollars, round, rw, rw2)
+                        menu(dollars, round, rw, rw2, eqip_w, eqip_w2)
         a,b = pygame.mouse.get_pos()
         if round >= 3:
             if button_p.x <= a <= button_p.x + 260 and button_p.y <= b <= button_p.y +60:
@@ -1022,5 +1022,5 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
         
         
         
-shop(dollars, round, rw, rw2, eqip_w, eqip_w2)
+menu(dollars, round, rw, rw2, eqip_w, eqip_w2)
 pygame.quit()
