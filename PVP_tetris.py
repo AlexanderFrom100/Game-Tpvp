@@ -793,10 +793,12 @@ def twodshoot(dollars, round, rw, rw2):
         if player.alive:
             run = True
         else:
+            rw2 += 1
             gameover = True
         if player2.alive:
             run = True
         else:
+            rw += 1
             gameover = True
         if shoot:
             player.shoot()
@@ -870,7 +872,16 @@ def rg_oscr(dollars, round, rw, rw2):
             scr.blit(play, (160, 505))
             scr.blit(quit, (530, 505))
             scr.blit(rg_o, (150, 250))
+            
+            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (340, 510))
+            scr.blit(m_font.render('-', True, pygame.Color('white')), (375, 505))
+            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (400, 510))
         else:
+            
+            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (350, 510))
+            scr.blit(m_font.render('-', True, pygame.Color('white')), (383, 506))
+            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (405, 510))
+            
             scr.blit(rg_o, (100, 250))
             
             scr.blit(s_font.render('Next round will begin in:', True, pygame.Color('green')), (207, 410))
