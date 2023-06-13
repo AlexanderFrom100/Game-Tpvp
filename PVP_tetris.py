@@ -368,7 +368,7 @@ def play_tet(dollars, round):
         if game_over:
             pygame.mixer.music.pause()
             dollars = money
-            shop(dollars)
+            shop(dollars, round)
                 
         pygame.display.flip()
         clock.tick(fps)
