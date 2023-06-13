@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = [3000, 3000]
+dollars = [3000, 0]
 round = 1
 rw = 0
 rw2 = 0
@@ -730,19 +730,19 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
         def update(self):
             if pygame.sprite.collide_rect(self, player):
                 if self.item_type == 'Health':
-                    player.health += 25
+                    player.health += 30
                     if player.health > player.max_health:
                         player.health = player.max_health
                 elif self.item_type == 'Ammo':
-                    player.ammo += 15
+                    player.ammo += 30
                 self.kill()
             if pygame.sprite.collide_rect(self, player2):
                 if self.item_type == 'Health':
-                    player2.health += 25
+                    player2.health += 30
                     if player2.health > player2.max_health:
                         player2.health = player2.max_health
                 elif self.item_type == 'Ammo':
-                    player2.ammo += 15
+                    player2.ammo += 30
                 self.kill()
 
 
@@ -832,7 +832,13 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
     platform4 = pygame.Rect(SCREEN_WIDTH/6+SCREEN_WIDTH/1.5-50,SCREEN_HEIGHT/1.6,100,50)
     gameover = False
     run = True
+    
+    pygame.mixer.music.load('epic_music.mp3')
+    pygame.mixer.music.play()
+    
     while run:
+        if pygame.mixer.music.get_busy() == False:
+            pygame.mixer.music.play()
         gameover = False
         clock.tick(FPS)
         screen.fill(BG)
@@ -921,6 +927,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
                 if event.key == pygame.K_RCTRL:
                     shoot2 = False
         if gameover == True:
+            pygame.mixer.music.pause()
             pygame.time.wait(1000)
             rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2)
         pygame.display.update()
@@ -945,6 +952,7 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
     
     seconds = 11
     milseconds = 0
+    
     
     while True:
         scr.blit(bg, (0,0))
@@ -1014,5 +1022,5 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
         
         
         
-shop(dollars, round, rw, rw2, eqip_w, eqip_w2)
+menu(dollars, round, rw, rw2, eqip_w, eqip_w2)
 pygame.quit()
