@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = [3000, 0]
+dollars = [100, 0]
 round = 1
 rw = 0
 rw2 = 0
@@ -506,6 +506,21 @@ def shop(dollars, round, rw, rw2, eqip_w, eqip_w2):
                 else:
                     if button_n.collidepoint(event.pos):
                         player_c += 1
+                if button_e.collidepoint(event.pos):
+                    if bought[0] == 1:
+                        eqip_w = 1
+                    if bought2[0] == 1:
+                        eqip_w2 = 1
+                if button_e2.collidepoint(event.pos):
+                    if bought[1] == 1:
+                        eqip_w = 2
+                    if bought2[1] == 1:
+                        eqip_w2 = 2
+                if button_e3.collidepoint(event.pos):
+                    if bought[2] == 1:
+                        eqip_w = 3
+                    if bought2[2] == 1:
+                        eqip_w2 = 3
                 if dollars[player_c] < price or dollars[player_c] <= 0:
                     break
                 if button_b.collidepoint(event.pos):
@@ -526,21 +541,6 @@ def shop(dollars, round, rw, rw2, eqip_w, eqip_w2):
                         bought[2] = 1
                     if player_c == 1:
                         bought2[2] = 1
-                if button_e.collidepoint(event.pos):
-                    if bought[0] == 1:
-                        eqip_w = 1
-                    if bought2[0] == 1:
-                        eqip_w2 = 1
-                if button_e2.collidepoint(event.pos):
-                    if bought[1] == 1:
-                        eqip_w = 2
-                    if bought2[1] == 1:
-                        eqip_w2 = 2
-                if button_e3.collidepoint(event.pos):
-                    if bought[2] == 1:
-                        eqip_w = 3
-                    if bought2[2] == 1:
-                        eqip_w2 = 3
                 
         
         a,b = pygame.mouse.get_pos()        
@@ -1022,5 +1022,5 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
         
         
         
-menu(dollars, round, rw, rw2, eqip_w, eqip_w2)
+shop(dollars, round, rw, rw2, eqip_w, eqip_w2)
 pygame.quit()
