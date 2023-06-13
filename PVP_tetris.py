@@ -957,14 +957,15 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
             scr.blit(quit, (530, 505))
             scr.blit(rg_o, (150, 250))
             
-            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (340, 410))
-            scr.blit(m_font.render('-', True, pygame.Color('white')), (375, 405))
-            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (400, 410))
+            scr.blit(m_font.render('FINAL SCORE:', True, pygame.Color('yellow')), (245, 375))
+            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (340, 420))
+            scr.blit(m_font.render('-', True, pygame.Color('white')), (375, 415))
+            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (400, 420))
         else:
-            
-            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (350, 510))
-            scr.blit(m_font.render('-', True, pygame.Color('white')), (383, 506))
-            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (405, 510))
+            scr.blit(m_font.render('SCORE:', True, pygame.Color('yellow')), (325, 485))
+            scr.blit(m_font.render(str(rw), True, pygame.Color('white')), (350, 540))
+            scr.blit(m_font.render('-', True, pygame.Color('white')), (383, 536))
+            scr.blit(m_font.render(str(rw2), True, pygame.Color('white')), (405, 540))
             
             scr.blit(rg_o, (100, 250))
             
@@ -1016,5 +1017,5 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
         
         
         
-shop(dollars, round, rw, rw2, eqip_w, eqip_w2)
+menu(dollars, round, rw, rw2, eqip_w, eqip_w2)
 pygame.quit()
