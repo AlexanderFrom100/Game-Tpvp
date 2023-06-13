@@ -6,7 +6,7 @@ from random import choice, randrange
 pygame.init()
 
 dollars = [3000, 3000]
-round = 3
+round = 1
 
 def play_tet(dollars):
     w = 10
@@ -850,6 +850,11 @@ def rg_oscr(dollars, round):
     play = m_font.render('PLAY AGAIN', True, pygame.Color('white'))
     quit = m_font.render('QUIT', True, pygame.Color('white'))
     
+    over = False
+    
+    seconds = 60
+    milseconds = 0
+    
     while True:
         scr.fill((0, 0, 0))
         if round >= 3:
@@ -859,6 +864,28 @@ def rg_oscr(dollars, round):
             scr.blit(rg_o, (150, 250))
         else:
             scr.blit(rg_o, (100, 250))
+            
+        if seconds < 10:
+            scr.blit(m_font.render('0', True, pygame.Color('white')), (327, 400))
+            scr.blit(m_font.render(str(seconds), True, pygame.Color('white')), (352, 400))
+        else:
+            scr.blit(m_font.render(str(seconds), True, pygame.Color('white')), (327, 400))
+            
+        if milseconds < 10:
+            scr.blit(m_font.render('0', True, pygame.Color('white')), (387, 400))
+            scr.blit(m_font.render(str(milseconds), True, pygame.Color('white')), (417, 400))
+        else:
+            scr.blit(m_font.render(str(milseconds), True, pygame.Color('white')), (387, 400))
+        
+        if milseconds == 0:
+            if seconds == 0:
+                over = True
+            else:
+                milseconds = 500
+                seconds -= 1
+        milseconds -= 1
+        pygame.time.wait(1)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -870,12 +897,6 @@ def rg_oscr(dollars, round):
                         dollars = [0, 0]
                         round = 1
                         menu(dollars, round)
-                else:
-                    if button_q.collidepoint(event.pos):
-                        pygame.quit()
-                    if button_p.collidepoint(event.pos):
-                        round += 1
-                        play_tet(dollars, round)
         a,b = pygame.mouse.get_pos()
         if round >= 3:
             if button_p.x <= a <= button_p.x + 260 and button_p.y <= b <= button_p.y +60:
@@ -888,6 +909,11 @@ def rg_oscr(dollars, round):
                 quit = m_font.render('QUIT', True, pygame.Color('white'))
             scr.blit(quit,(button_q.x, button_q.y))
             scr.blit(play,(button_p.x, button_p.y))
+            
+        if over:
+            round += 1
+            play_tet(dollars, round)
+        
         pygame.display.update()
                 
         
