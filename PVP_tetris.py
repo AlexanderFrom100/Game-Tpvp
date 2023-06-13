@@ -8,7 +8,7 @@ pygame.init()
 dollars = [3000, 3000]
 round = 1
 
-def play_tet(dollars):
+def play_tet(dollars, round):
     w = 10
     h = 20
     Tile = 35
@@ -373,7 +373,7 @@ def play_tet(dollars):
         pygame.display.flip()
         clock.tick(fps)
         
-def menu(dollars, menu):
+def menu(dollars, round):
     font = pygame.font.SysFont('cambria', 50)
     button_p = pygame.Rect(260, 705,110,60)
     button_q = pygame.Rect(430, 705,110,60)
@@ -394,7 +394,7 @@ def menu(dollars, menu):
                 if button_q.collidepoint(event.pos):
                     pygame.quit()
                 if button_p.collidepoint(event.pos):
-                    play_tet(dollars)
+                    play_tet(dollars, round)
         a,b = pygame.mouse.get_pos()
         if button_p.x <= a <= button_p.x + 110 and button_p.y <= b <= button_p.y +60:
            play = font.render('PLAY', True, pygame.Color('cyan'))
@@ -408,7 +408,7 @@ def menu(dollars, menu):
         scr.blit(play,(button_p.x, button_p.y))
         pygame.display.update()
         
-def shop(dollars):
+def shop(dollars, round):
     clock = pygame.time.Clock()
     res = 800, 800
     scr = pygame.display.set_mode(res)
@@ -480,7 +480,7 @@ def shop(dollars):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if player_c > 0:
                     if button_n.collidepoint(event.pos):
-                        twodshoot()
+                        twodshoot(dollars, round)
                 else:
                     if button_n.collidepoint(event.pos):
                         player_c += 1
@@ -542,7 +542,7 @@ def shop(dollars):
         clock.tick()
         pygame.display.update()
 
-def twodshoot():
+def twodshoot(dollars, round):
     SCREEN_WIDTH = 1200
     SCREEN_HEIGHT = SCREEN_WIDTH*0.625
     clock = pygame.time.Clock()
@@ -833,7 +833,7 @@ def twodshoot():
                     shoot2 = False
         if gameover == True:
             pygame.time.wait(1000)
-            rg_oscr()
+            rg_oscr(dollars, round)
         pygame.display.update()
 
     
@@ -844,6 +844,7 @@ def rg_oscr(dollars, round):
     
     font = pygame.font.SysFont('cambria', 100)
     m_font = pygame.font.SysFont('cambria', 50)
+    s_font = pygame.font.SysFont('cambria', 30)
     rg_o = font.render('ROUND OVER', True, pygame.Color('white'))
     button_p = pygame.Rect(160, 505,260,60)
     button_q = pygame.Rect(530, 505,110,60)
@@ -852,7 +853,7 @@ def rg_oscr(dollars, round):
     
     over = False
     
-    seconds = 60
+    seconds = 11
     milseconds = 0
     
     while True:
@@ -865,26 +866,22 @@ def rg_oscr(dollars, round):
         else:
             scr.blit(rg_o, (100, 250))
             
-        if seconds < 10:
-            scr.blit(m_font.render('0', True, pygame.Color('white')), (327, 400))
-            scr.blit(m_font.render(str(seconds), True, pygame.Color('white')), (352, 400))
-        else:
-            scr.blit(m_font.render(str(seconds), True, pygame.Color('white')), (327, 400))
+            scr.blit(s_font.render('Next round will begin in:', True, pygame.Color('white')), (207, 410))
             
-        if milseconds < 10:
-            scr.blit(m_font.render('0', True, pygame.Color('white')), (387, 400))
-            scr.blit(m_font.render(str(milseconds), True, pygame.Color('white')), (417, 400))
-        else:
-            scr.blit(m_font.render(str(milseconds), True, pygame.Color('white')), (387, 400))
-        
-        if milseconds == 0:
-            if seconds == 0:
-                over = True
+            if seconds < 10:
+                scr.blit(m_font.render('0', True, pygame.Color('white')), (527, 400))
+                scr.blit(m_font.render(str(seconds), True, pygame.Color('white')), (552, 400))
             else:
-                milseconds = 500
-                seconds -= 1
-        milseconds -= 1
-        pygame.time.wait(1)
+                scr.blit(m_font.render(str(seconds), True, pygame.Color('white')), (527, 400))
+            
+            if milseconds == 0:
+                if seconds == 0:
+                    over = True
+                else:
+                    milseconds = 500
+                    seconds -= 1
+            milseconds -= 1
+            pygame.time.wait(1)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
