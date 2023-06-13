@@ -517,6 +517,10 @@ def shop(dollars, round, rw, rw2, eqip_w, eqip_w2):
            
         if button_e.x <= a <= button_e.x + 70 and button_e.y <= b <= button_e.y + 40:
            equip = o_font.render('Equip', True, pygame.Color('yellow'))
+           if player_c == 0:
+               eqip_w = 1
+           elif player_c == 1:
+               eqip_w2 = 1
         else:
            equip = o_font.render('Equip', True, pygame.Color('white'))
            
@@ -711,13 +715,26 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
 
             if pygame.sprite.spritecollide(player, bullet_group, False):
                 if player.alive:
-                    player.health -= 10
+                    if eqip_w2 == 0:
+                        player.health -= 1
+                    elif eqip_w2 == 1:
+                        player.health -= 10
+                    elif eqip_w2 == 2:
+                        player.health -= 20
+                    elif eqip_w2 == 3:
+                        player.health -= 40
                     self.kill()
                 
             if pygame.sprite.spritecollide(player2, bullet_group, False):
                 if player2.alive:
-                    player2.health -= 10
-                    print(player2.health)
+                    if eqip_w == 0:
+                        player2.health -= 1
+                    elif eqip_w == 1:
+                        player2.health -= 10
+                    elif eqip_w == 2:
+                        player2.health -= 20
+                    elif eqip_w == 3:
+                        player2.health -= 40
                     self.kill()
 
     random_x = rand_x()
@@ -809,7 +826,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     moving_left = True
@@ -934,5 +951,5 @@ def rg_oscr(dollars, round, rw, rw2, eqip_w, eqip_w2):
         
         
         
-menu(dollars, round, rw, rw2, eqip_w, eqip_w2)
+shop(dollars, round, rw, rw2, eqip_w, eqip_w2)
 pygame.quit()
