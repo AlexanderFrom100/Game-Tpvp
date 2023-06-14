@@ -783,7 +783,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
                     elif eqip_w2 == 1:
                         player.health -= 10
                     elif eqip_w2 == 2:
-                        player.health -= 20
+                        player.health -= 15
                     elif eqip_w2 == 3:
                         player.health -= 40
                     self.kill()
@@ -795,7 +795,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
                     elif eqip_w == 1:
                         player2.health -= 10
                     elif eqip_w == 2:
-                        player2.health -= 20
+                        player2.health -= 15
                     elif eqip_w == 3:
                         player2.health -= 40
                     self.kill()
@@ -828,7 +828,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
     if eqip_w == 2:
         shoot_cooldown = 10
     if eqip_w == 3:
-        shoot_cooldown = 40
+        shoot_cooldown = 50
         
     if eqip_w2 == 0:
         shoot_cooldown2 = 30
@@ -837,7 +837,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
     if eqip_w2 == 2:
         shoot_cooldown2 = 10
     if eqip_w2 == 3:
-        shoot_cooldown2 = 40
+        shoot_cooldown2 = 50
     
     player = Soldier('1x4', 50, 500, 3, 5, 20, shoot_cooldown)
     health_bar = HealthBar(10, 10, player.health, player.health)
