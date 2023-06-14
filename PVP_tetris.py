@@ -5,7 +5,7 @@ from random import choice, randrange
 
 pygame.init()
 
-dollars = [100, 0]
+dollars = [3000, 3000]
 round = 1
 rw = 0
 rw2 = 0
@@ -651,14 +651,15 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
 
 
     class Soldier(pygame.sprite.Sprite):
-        def __init__(self, char_type, x, y, scale, speed, ammo):
+        def __init__(self, char_type, x, y, scale, speed, ammo, shoot_cool):
             pygame.sprite.Sprite.__init__(self)
             self.alive = True
             self.char_type = char_type
             self.speed = speed
             self.ammo = ammo
             self.start_ammo = ammo
-            self.shoot_cooldown = 0
+            self.start_shoot_cooldown = shoot_cool
+            self.shoot_cooldown = shoot_cool
             self.health = 100
             self.max_health = self.health
             self.direction = 1
@@ -709,7 +710,7 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
             
         def shoot(self):
             if self.shoot_cooldown == 0 and self.ammo > 0:
-                self.shoot_cooldown = 20
+                self.shoot_cooldown = self.start_shoot_cooldown
                 bullet = Bullet(self.rect.centerx + (0.8 * self.rect.size[0] * self.direction), self.rect.centery, self.direction)
                 bullet_group.add(bullet)
                 self.ammo -= 1
@@ -818,10 +819,29 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
     item_box_group.add(item_box)
     item_box_group.add(item_box2)
 
-            
-    player = Soldier('1x4', 50, 500, 3, 5, 20)
+    shoot_cooldown = 0
+    shoot_cooldown2 = 0
+    if eqip_w == 0:
+        shoot_cooldown = 30
+    if eqip_w == 1:
+        shoot_cooldown = 20
+    if eqip_w == 2:
+        shoot_cooldown = 10
+    if eqip_w == 3:
+        shoot_cooldown = 40
+        
+    if eqip_w2 == 0:
+        shoot_cooldown2 = 30
+    if eqip_w2 == 1:
+        shoot_cooldown2 = 20
+    if eqip_w2 == 2:
+        shoot_cooldown2 = 10
+    if eqip_w2 == 3:
+        shoot_cooldown2 = 40
+    
+    player = Soldier('1x4', 50, 500, 3, 5, 20, shoot_cooldown)
     health_bar = HealthBar(10, 10, player.health, player.health)
-    player2 = Soldier('1x4r', SCREEN_WIDTH-50, 500, 3, 5, 20)
+    player2 = Soldier('1x4r', SCREEN_WIDTH-50, 500, 3, 5, 20, shoot_cooldown2)
     health_bar2 = HealthBar(1030, 10, player2.health, player2.health)
     
     ground = pygame.Rect(0,600,SCREEN_WIDTH,SCREEN_HEIGHT-600)
