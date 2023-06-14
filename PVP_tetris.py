@@ -417,6 +417,8 @@ def menu(dollars, round, rw, rw2, eqip_w, eqip_w2):
         pygame.display.update()
         
 def shop(dollars, round, rw, rw2, eqip_w, eqip_w2):
+    eqip_w = 0
+    eqip_w2 = 0
     clock = pygame.time.Clock()
     res = 800, 800
     scr = pygame.display.set_mode(res)
@@ -629,9 +631,6 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
     BG = (104, 161, 80)
     shoot = False
     shoot2 = False
-    
-    eqip_w = 0
-    eqip_w2 = 0
     
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('2dShooter')
