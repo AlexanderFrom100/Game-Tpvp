@@ -630,6 +630,9 @@ def twodshoot(dollars, round, rw, rw2, eqip_w, eqip_w2):
     shoot = False
     shoot2 = False
     
+    eqip_w = 0
+    eqip_w2 = 0
+    
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('2dShooter')
     
